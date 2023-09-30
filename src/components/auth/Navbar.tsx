@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const Navbar = () => {
   const { data: session } = useSession();
   return (
-    <nav className="border p-2">
+    <nav className="border p-2 shadow-md">
       <ul className="flex items-center justify-between">
         <li>Weekendless!</li>
         <li className="flex items-center gap-2">
