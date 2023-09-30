@@ -11,7 +11,7 @@ const Navbar = () => {
         <li className="flex items-center gap-2">
           {session ? (
             <>
-              <p>{session.user.name}</p>
+              <p>{session?.user?.name}</p>
               <Button onClick={() => signOut()}>Log out</Button>
             </>
           ) : (
