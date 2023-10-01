@@ -17,6 +17,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "libero.cronosmedia.glr.pe",
+  //     },
+  //   ],
+  // },
 };
 
 export default config;
