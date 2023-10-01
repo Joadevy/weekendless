@@ -1,22 +1,19 @@
-import { type Event } from "@prisma/client";
+import Event from "~/components/Event";
 import { getEvents } from "~/lib/api/utils";
+
+export const revalidate = 10; // change when no dev environment
 
 export default async function Home() {
   const events: Event[] = await getEvents();
-
-  console.log(events);
   return (
-    <main className="flex w-full items-center justify-center p-2">
+    <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3">
       <header>
         <h1 className="text-5xl font-extrabold text-gray-800">WEEKENDLESS</h1>
       </header>
 
-      <ul>
+      <ul className="flex flex-col gap-2">
         {events.map((event) => (
-          <li key={event.id}>
-            <h2>{event.name}</h2>
-            <p>{event.description}</p>
-          </li>
+          <Event key={event.id} event={event} />
         ))}
       </ul>
     </main>
