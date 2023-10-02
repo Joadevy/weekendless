@@ -56,6 +56,7 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    role          String?   @default("user") // user | admin 
     accounts      Account[]
     sessions      Session[]
     reservations  Reservation[]
@@ -77,36 +78,46 @@ model Event {
     date     DateTime
     Seats     Seat[]
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @updatedAt @default(now())
 
     @@index([name])
 }
 
 model Seat {
     id        Int      @id @default(autoincrement())
-    name      String
+    number      Int    
     description String
     price     Int
-    eventId   Int
+    eventId   Int 
     event     Event    @relation(fields: [eventId], references: [id])
-    reservationId Int
-    reservation Reservation @relation(fields: [reservationId], references: [id])
+    reservation Reservation?
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @updatedAt @default(now())
 
-    @@index([name])
+    @@index([number])
 }
 
 model Reservation {
     id        Int      @id @default(autoincrement())
+    attendeeId Int
+    attendee  attendee @relation(fields: [attendeeId], references: [id])
     userId    String
     user      User     @relation(fields: [userId], references: [id])
-    name      String
-    email     String
-    phone     String
-    seats     Seat[]
+    seatId    Int      @unique
+    seat      Seat     @relation(fields: [seatId], references: [id])
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @updatedAt @default(now())
 
-    @@index([name])
+    @@index([userId])
+}
+
+model attendee {
+    id        Int      @id @default(autoincrement())
+    name      String
+    phone     String
+    email     String
+    nationalID String  @unique
+    reservations Reservation[]
+
+    @@index([nationalID])
 }
