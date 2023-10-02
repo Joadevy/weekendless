@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -7,7 +8,9 @@ const Navbar = () => {
   return (
     <nav className="border p-2 shadow-md">
       <ul className="flex items-center justify-between">
-        <li>Weekendless!</li>
+        <li>
+          <Link href={"/"}>Weekendless!</Link>
+        </li>
         <li className="flex items-center gap-2">
           {session ? (
             <>

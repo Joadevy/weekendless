@@ -10,3 +10,15 @@ export async function getEvents(): Promise<Event[] | null> {
     return null;
   }
 }
+
+export async function getEventByID(id: number): Promise<Event | null> {
+  try {
+    const event = await db.event.findUnique({
+      where: { id },
+    });
+    return event;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
