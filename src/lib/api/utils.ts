@@ -1,3 +1,5 @@
+import { type Event, type Venue } from "@prisma/client";
+
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const getEvents = async () => {
@@ -6,8 +8,16 @@ export const getEvents = async () => {
 };
 
 export const getEventByID = async (id: number) => {
-  const events = await fetch(`${baseUrl}/event/${id}`).then((res) =>
-    res.json(),
+  const event: Event | null = await fetch(`${baseUrl}/event/${id}`).then(
+    (res) => res.json(),
   );
-  return events;
+  return event;
+};
+
+export const getVenueByID = async (id: number) => {
+  const venue: Venue | null = await fetch(`${baseUrl}/venue/${id}`).then(
+    (res) => res.json(),
+  );
+
+  return venue;
 };

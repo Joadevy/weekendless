@@ -1,4 +1,5 @@
 import { type Event } from "@prisma/client";
+import VenueDetails from "./VenueDetails";
 
 type Props = {
   event: Event;
@@ -19,6 +20,10 @@ const EventDetails = ({ event }: Props) => {
         <h2>{event.name}</h2>
         <p>{event.description}</p>
         <p>{new Date(event.date).toLocaleDateString("en")}</p>
+
+        <div className="mt-2">
+          <VenueDetails venueId={event.venueId} />
+        </div>
       </div>
     </div>
   );

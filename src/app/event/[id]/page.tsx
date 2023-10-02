@@ -1,6 +1,8 @@
 import EventDetails from "~/components/EventDetails";
 import { getEventByID } from "~/lib/api/utils";
 
+export const revalidate = 10; // change when no dev environment
+
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const eventID = Number(id);
   const event = await getEventByID(eventID);
