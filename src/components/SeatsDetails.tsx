@@ -2,6 +2,7 @@
 import { type Reservation, type Seat } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { createReservation } from "~/lib/api/utils";
+import { Button } from "./ui/button";
 
 type Props = {
   seats: Seat[];
@@ -26,15 +27,19 @@ const SeatsDetails = ({ seats }: Props) => {
   return (
     <>
       <h2>Seats</h2>
-      <ul>
+      <ul className="flex flex-col gap-2">
         {seats.map((seat) => (
-          <li key={seat.id}>
+          <li key={seat.id} className="flex items-center gap-2">
             <p>
-              {seat.number} - {seat.price}
+              {seat.number} |{" "}
+              {seat.price.toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
             </p>
-            <button onClick={() => handleNewReservation(seat.id)}>
+            <Button onClick={() => handleNewReservation(seat.id)}>
               Reserve
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
