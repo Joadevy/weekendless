@@ -1,4 +1,4 @@
-import { type Event, type Venue } from "@prisma/client";
+import { type Seat, type Event, type Venue } from "@prisma/client";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -20,4 +20,11 @@ export const getVenueByID = async (id: number) => {
   );
 
   return venue;
+};
+
+export const getSeatsByEventID = async (id: number) => {
+  const seats: Seat[] | null = await fetch(`${baseUrl}/seats/${id}`).then(
+    (res) => res.json(),
+  );
+  return seats;
 };

@@ -1,5 +1,6 @@
 import { type Event } from "@prisma/client";
 import VenueDetails from "./VenueDetails";
+import Seat from "./Seat";
 
 type Props = {
   event: Event;
@@ -16,14 +17,20 @@ const EventDetails = ({ event }: Props) => {
         ></img>
       </header>
 
-      <div className="p-4">
-        <h2>{event.name}</h2>
-        <p>{event.description}</p>
-        <p>{new Date(event.date).toLocaleDateString("en")}</p>
+      <div className="flex flex-col gap-2 p-4">
+        <section>
+          <h2>{event.name}</h2>
+          <p>{event.description}</p>
+          <p>{new Date(event.date).toLocaleDateString("en")}</p>
+        </section>
 
-        <div className="mt-2">
+        <section className="">
           <VenueDetails venueId={event.venueId} />
-        </div>
+        </section>
+
+        <section className="">
+          <Seat eventId={event.id} />
+        </section>
       </div>
     </div>
   );
