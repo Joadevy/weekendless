@@ -1,4 +1,9 @@
-import { type Seat, type Event, type Venue } from "@prisma/client";
+import {
+  type Seat,
+  type Event,
+  type Venue,
+  type Reservation,
+} from "@prisma/client";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -27,4 +32,16 @@ export const getSeatsByEventID = async (id: number) => {
     (res) => res.json(),
   );
   return seats;
+};
+
+export const createReservation = async (reservation: Reservation) => {
+  const newReservation = await fetch(`${baseUrl}/seat/reserve`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reservation),
+  }).then((res) => res.json());
+
+  return newReservation;
 };

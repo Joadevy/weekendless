@@ -36,13 +36,13 @@ const authOptions: AuthOptions = {
   //     return session;
   //   },
   // },
-  pages: {
-    signIn: "/signin",
-    // signOut: "/auth/signout",
-    // error: "/auth/error",
-    // verifyRequest: "/auth/verify-request",
-    // newUser: "/auth/new-user",
-  },
+  // pages: {
+  //   signIn: "/signin",
+  //   // signOut: "/auth/signout",
+  //   // error: "/auth/error",
+  //   // verifyRequest: "/auth/verify-request",
+  //   // newUser: "/auth/new-user",
+  // },
   adapter: PrismaAdapter(prisma),
   // session: {
   //   strategy: "jwt",
