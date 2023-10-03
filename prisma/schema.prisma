@@ -112,8 +112,8 @@ model Seat {
 
 model Reservation {
     id        Int      @id @default(autoincrement())
-    attendeeId Int
-    attendee  attendee @relation(fields: [attendeeId], references: [id])
+    attendeeNationalID String
+    attendee  Attendee @relation(fields: [attendeeNationalID], references: [nationalID])
     userId    String
     user      User     @relation(fields: [userId], references: [id])
     seatId    Int      @unique
@@ -124,7 +124,7 @@ model Reservation {
     @@index([userId])
 }
 
-model attendee {
+model Attendee {
     id        Int      @id @default(autoincrement())
     name      String
     phone     String

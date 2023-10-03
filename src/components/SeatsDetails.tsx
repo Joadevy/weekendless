@@ -1,29 +1,12 @@
 "use client";
-import { type Reservation, type Seat } from "@prisma/client";
-import { useSession } from "next-auth/react";
-import { createReservation } from "~/lib/api/utils";
-import { Button } from "./ui/button";
+import { type Seat } from "@prisma/client";
+import MakeReservation from "./MakeReservation";
 
 type Props = {
   seats: Seat[];
 };
 
 const SeatsDetails = ({ seats }: Props) => {
-  const { data: session } = useSession();
-
-  const handleNewReservation = async (seatId: number) => {
-    if (!session?.user) return;
-
-    const newReservation: Reservation = {
-      seatId,
-      attendeeId: 1,
-      // userId: session?.user?.email,
-      userId: "1",
-    };
-
-    await createReservation(newReservation);
-  };
-
   return (
     <>
       <h2>Seats</h2>
@@ -37,9 +20,7 @@ const SeatsDetails = ({ seats }: Props) => {
                 currency: "USD",
               })}
             </p>
-            <Button onClick={() => handleNewReservation(seat.id)}>
-              Reserve
-            </Button>
+            <MakeReservation seatId={seat.id} />
           </li>
         ))}
       </ul>
