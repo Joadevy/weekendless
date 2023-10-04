@@ -2,6 +2,8 @@ import { type Reservation } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { getUserIdByEmail } from "~/lib/api/utils";
 import { create } from "~/server/models/Reservation";
+import { createIfNotExists } from "~/server/models/Attendees";
+
 import { type ClientReservation } from "~/types";
 
 export async function POST(request: Request) {
@@ -11,9 +13,16 @@ export async function POST(request: Request) {
   // Armar la entidad reserva y pasarsela al modelo
   const userId = await getUserIdByEmail(clientReservation.userEmail);
 
-  console.log(userId);
+  const attendee = {
+    name: clientReservation.attendeeName,
+    nationalId: clientReservation.attendeeNationalId,
+    phone: clientReservation.attendeePhone,
+    email: clientReservation.attendeeEmail,
+  };
 
-  if (!userId) {
+  const existsAttendee = await createIfNotExists(attendee);
+
+  if (!userId || !existsAttendee) {
     return NextResponse.error();
   }
 
@@ -29,7 +38,7 @@ export async function POST(request: Request) {
   console.log(reservation);
 
   // Pasarla al modelo para que cree la nueva reserva
-  // const mewReservation = await create(reservation);
-  return NextResponse.json({});
-  // return NextResponse.json(reservation);
+  // const newReservation = await create(reservation);
+  // return NextResponse.json(newReservation);
+  return NextResponse.json(reservation);
 }
