@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { getSeatsByEventID } from "~/server/models/Seats";
+import { getAvailableSeatsByEventID } from "~/server/models/Seats";
 
 export async function GET(
   request: Request,
   { params: { eventId } }: { params: { eventId: string } },
 ) {
-  const seats = await getSeatsByEventID(Number(eventId));
+  const seats = await getAvailableSeatsByEventID(Number(eventId));
   return NextResponse.json(seats);
 }

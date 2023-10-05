@@ -1,10 +1,15 @@
 import { type Reservation } from "@prisma/client";
 import { db } from "../db";
 
-export const getSeatsByEventID = async (id: number) => {
+export const getAvailableSeatsByEventID = async (id: number) => {
   try {
     const Seats = await db.seat.findMany({
-      where: { eventId: id },
+      where: {
+        AND: {
+          eventId: id,
+          reservation: null,
+        },
+      },
     });
     return Seats;
   } catch (error) {

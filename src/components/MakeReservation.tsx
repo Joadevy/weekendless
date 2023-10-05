@@ -14,16 +14,22 @@ import { Button } from "./ui/button";
 
 type Props = {
   seatId: number;
+  handleReservation: (seatId: number) => void;
 };
 
-const MakeReservation = ({ seatId }: Props) => {
+const MakeReservation = ({ seatId, handleReservation }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <AlertDialog>
         <AlertDialogTrigger>
-          <Button onClick={() => setIsOpen(true)}>Reserve</Button>
+          <Button
+            className="absolute right-32 top-0"
+            onClick={() => setIsOpen(true)}
+          >
+            Reserve
+          </Button>
         </AlertDialogTrigger>
         {isOpen ? (
           <AlertDialogContent>
@@ -33,7 +39,11 @@ const MakeReservation = ({ seatId }: Props) => {
                 Enter the attendee information below
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AttendeeForm seatId={seatId} setOpen={setIsOpen}>
+            <AttendeeForm
+              seatId={seatId}
+              setOpen={setIsOpen}
+              handleReservation={handleReservation}
+            >
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
               </AlertDialogFooter>

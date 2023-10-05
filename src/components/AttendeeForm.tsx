@@ -37,9 +37,10 @@ type Props = {
   seatId: number;
   children: React.ReactNode;
   setOpen: (isOpen: boolean) => void;
+  handleReservation: (seatId: number) => void;
 };
 
-function AttendeeForm({ seatId, children, setOpen }: Props) {
+function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -70,6 +71,7 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
     setIsLoading(false);
 
     if (reservation) {
+      handleReservation(seatId);
       return setOpen(false);
     }
 

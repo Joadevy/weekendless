@@ -35,8 +35,6 @@ export async function POST(request: Request) {
     attendeeNationalID: clientReservation.attendeeNationalId,
   };
 
-  console.log(reservation);
-
   // Pasarla al modelo para que cree la nueva reserva
   const newReservation = await create(reservation);
   return NextResponse.json(newReservation);

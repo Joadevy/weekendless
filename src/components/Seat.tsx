@@ -5,6 +5,8 @@ type Props = {
   eventId: number;
 };
 
+export const revalidate = 60;
+
 const Seat = async ({ eventId }: Props) => {
   const seats = await getSeatsByEventID(eventId);
 
