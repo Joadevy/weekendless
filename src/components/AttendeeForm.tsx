@@ -16,6 +16,7 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -40,8 +41,8 @@ type Props = {
 
 function AttendeeForm({ seatId, children, setOpen }: Props) {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,29 +53,27 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
     },
   });
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!session?.user) return;
-
-    const attendee = {
-      name: values.name,
-      email: values.email,
-      phone: values.phone,
-      nationalID: values.nationalID,
-    };
+    setIsLoading(true);
 
     const newReservation: ClientReservation = {
       seatId,
       userEmail: session?.user?.email!,
-      attendeeNationalId: attendee.nationalID,
-      attendeeName: attendee.name,
-      attendeeEmail: attendee.email,
-      attendeePhone: attendee.phone,
+      attendeeNationalId: values.nationalID,
+      attendeeName: values.name,
+      attendeeEmail: values.email,
+      attendeePhone: values.phone,
     };
 
-    await createReservation(newReservation);
+    const reservation = await createReservation(newReservation);
+    setIsLoading(false);
 
-    setOpen(false);
+    if (reservation) {
+      return setOpen(false);
+    }
+
+    alert("Failed to create reservation");
   }
 
   return (
@@ -90,7 +89,11 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Type the attendee's name" {...field} />
+                <Input
+                  placeholder="Type the attendee's name"
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,6 +109,7 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
                 <Input
                   placeholder="Type the attendee's national ID number"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -119,7 +123,11 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Type the attendee's email" {...field} />
+                <Input
+                  placeholder="Type the attendee's email"
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -135,6 +143,7 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
                 <Input
                   placeholder="Type the attendee's phone number"
                   {...field}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -144,7 +153,13 @@ function AttendeeForm({ seatId, children, setOpen }: Props) {
 
         <div className="mt-3 flex items-center justify-between">
           {children}
-          <Button type="submit">Reserve</Button>
+          {isLoading ? (
+            <Button disabled={isLoading}>
+              <p className="animate-spin">↺</p>
+            </Button>
+          ) : (
+            <Button type="submit">Reserve</Button>
+          )}
         </div>
       </form>
     </Form>

@@ -13,7 +13,7 @@ export async function getReservations(): Promise<Reservation[] | null> {
 }
 
 export async function create(
-  reservation: Reservation,
+  reservation: Pick<Reservation, "seatId" | "userId" | "attendeeNationalID">,
 ): Promise<Reservation | null> {
   try {
     const newReservation = await db.reservation.create({

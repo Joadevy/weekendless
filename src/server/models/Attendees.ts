@@ -14,7 +14,9 @@ export const getAttendeeByNationalId = async (nationalID: string) => {
   }
 };
 
-export const createIfNotExists = async (attendee: Attendee) => {
+export const createIfNotExists = async (
+  attendee: Pick<Attendee, "email" | "phone" | "nationalId" | "name">,
+) => {
   try {
     const attendeeCreated: Attendee = await db.attendee.upsert({
       where: { nationalID: attendee.nationalId },
