@@ -1,4 +1,3 @@
-import Navbar from "~/components/auth/Navbar";
 import { NextAuthProvider } from "~/components/auth/SessionProvider";
 import "~/styles/globals.css";
 
@@ -15,10 +14,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <NextAuthProvider>
       <html lang="en">
-        <body className="">
-          <Navbar />
-          {children}
-        </body>
+        <body className="">{children}</body>
       </html>
     </NextAuthProvider>
   );
