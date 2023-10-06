@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -21,32 +21,25 @@ const authOptions: AuthOptions = {
       // },
     }),
   ],
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.role = user.role;
-  //     }
-  //     return token;
-  //   },
-
-  //   async session({ session, token }) {
-  //     if (session.user) {
-  //       session.user.role = token.role;
-  //     }
-  //     return session;
-  //   },
-  // },
-  // pages: {
-  //   signIn: "/signin",
-  //   // signOut: "/auth/signout",
-  //   // error: "/auth/error",
-  //   // verifyRequest: "/auth/verify-request",
-  //   // newUser: "/auth/new-user",
-  // },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      const u = new URL(url);
+      const redirectUrl = u.searchParams.get("callbackUrl")!;
+      if (redirectUrl) return redirectUrl;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
+  },
+  pages: {
+    signIn: "/signin",
+    //   // signOut: "/auth/signout",
+    //   // error: "/auth/error",
+    //   // verifyRequest: "/auth/verify-request",
+    //   // newUser: "/auth/new-user",
+  },
   adapter: PrismaAdapter(prisma),
-  // session: {
-  //   strategy: "jwt",
-  // },
 };
 
 const handler = NextAuth(authOptions);

@@ -1,26 +1,19 @@
-"use client";
 import Link from "next/link";
-import { Button } from "../ui/button";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "~/app/api/auth/[...nextauth]/route";
+import SignInOutButtons from "./SIgnInOutButtons";
 
-const Navbar = () => {
-  const { data: session } = useSession();
+const Navbar = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <nav className="border p-2 shadow-md">
       <ul className="flex items-center justify-between">
         <li>
           <Link href={"/"}>Weekendless!</Link>
         </li>
-        <li className="flex items-center gap-2">
-          {session ? (
-            <>
-              <p>{session?.user?.name}</p>
-              <Button onClick={() => signOut()}>Log out</Button>
-            </>
-          ) : (
-            <Button onClick={() => signIn()}>Sign In</Button>
-          )}
-        </li>
+
+        <SignInOutButtons session={session} />
       </ul>
     </nav>
   );
