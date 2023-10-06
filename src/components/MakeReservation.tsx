@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { Button } from "./ui/button";
 
 type Props = {
   seatId: number;
@@ -23,13 +22,11 @@ const MakeReservation = ({ seatId, handleReservation }: Props) => {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger>
-          <Button
-            className="absolute right-32 top-0"
-            onClick={() => setIsOpen(true)}
-          >
-            Reserve
-          </Button>
+        <AlertDialogTrigger
+          onClick={() => setIsOpen(true)}
+          className="absolute right-32 top-0 border p-2 shadow-md"
+        >
+          Reserve
         </AlertDialogTrigger>
         {isOpen ? (
           <AlertDialogContent>
