@@ -17,6 +17,7 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { useToast } from "./ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -43,6 +44,7 @@ type Props = {
 function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,10 +74,19 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
 
     if (reservation) {
       handleReservation(seatId);
+      toast({
+        title: "Reservation created.",
+        description: "We've created a reservation for you!",
+      });
       return setOpen(false);
     }
 
-    alert("Failed to create reservation");
+    toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description:
+        "There was a problem with your reservation, please try again.",
+    });
   }
 
   return (
