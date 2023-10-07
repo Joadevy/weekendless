@@ -6,12 +6,12 @@ import Login from "../../components/auth/Login";
 import AccordionQA from "../../components/Accordeon/AccordeonContainer";
 
 const Page = () => {
-  // const { data: session } = useSession();
-  // const router = useRouter();
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  // if (session) {
-  //   return router.push("/");
-  // }
+  if (session) {
+    return router.push("/");
+  }
 
   return (
     <main className="min-h-screen grid place-items-center">
