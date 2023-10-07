@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import AttendeeForm from "./AttendeeForm";
@@ -13,11 +13,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { Button } from "./ui/button";
 
 type Props = {
   seatId: number;
-  handleReservation: (seatId: number) => void;
+  handleReservation: (_: number) => void;
 };
 
 const MakeReservation = ({ seatId, handleReservation }: Props) => {

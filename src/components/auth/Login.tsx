@@ -2,17 +2,28 @@
 import { signIn } from "next-auth/react";
 
 import { Button } from "../ui/button";
+import { getBaseURL } from "../../lib/utils";
 
 const Login = () => {
   return (
-    <div className="border p-2 shadow-md">
-      <div className="flex items-center gap-2">
+    <div className="border p-3 shadow-lg border-gray-400 rounded-md">
+      <header className="mb-2 text-center">
+        <h1 className="text-2xl font-bold">Weekendless</h1>
+        <p>Sign In to reserve tickets for your favourite events!</p>
+      </header>
+
+      <div className="flex flex-col items-center gap-2">
         <Button
-          onClick={async () => await signIn("google", { redirect: true })}
+          onClick={async () =>
+            await signIn("google", {
+              redirect: true,
+              callbackUrl: getBaseURL(),
+            })
+          }
         >
-          Sign In With Google
+          Sign In with Google
         </Button>
-        <p className="bg-gray-400 italic">
+        <p className="text-gray-400 italic">
           Only email, name and avatar will be given to us.
         </p>
       </div>
