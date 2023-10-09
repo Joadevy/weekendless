@@ -14,7 +14,7 @@ export const getEvents = async () => {
   const eventsData = await fetch(`${baseUrl}/events`);
   const events = await eventsData.json();
 
-  console.log("eventos: ", events);
+  console.log(events);
 
   return events;
 };

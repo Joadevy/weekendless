@@ -5,9 +5,17 @@ import Navbar from "../components/auth/Navbar";
 import { getEvents } from "../lib/api/utils";
 
 export const revalidate = 3600; // change when no dev environment
+const getBaseURL = () => {
+  return process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
+    : `${process.env.NEXT_PUBLIC_API_URL}`;
+};
 
 export default async function Home() {
-  const events: event[] = await getEvents();
+  const baseUrl = getBaseURL();
+  const events: event[] = await fetch(`${baseUrl}/events`).then((res) =>
+    res.json(),
+  );
 
   return (
     <>
