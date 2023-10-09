@@ -8,8 +8,6 @@ export async function getEvents(): Promise<Event[] | null> {
 
     return events;
   } catch (error) {
-    console.error(error);
-
     return null;
   }
 }

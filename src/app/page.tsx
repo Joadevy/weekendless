@@ -4,7 +4,7 @@ import Event from "../components/Event";
 import Navbar from "../components/auth/Navbar";
 import { getEvents } from "../server/models/Events";
 
-export const revalidate = 10; // change when no dev environment
+export const revalidate = 3600 * 24; // change when no dev environment
 
 export default async function Home() {
   const events: event[] | null = await getEvents();
