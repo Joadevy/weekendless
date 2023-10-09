@@ -1,10 +1,10 @@
-import { type Reservation } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 import { getUserIdByEmail } from "../../../../lib/api/utils";
 import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
+import { Reservation } from ".prisma/client";
 
 export async function POST(request: Request) {
   const clientReservation: ClientReservation = await request.json();
