@@ -2,12 +2,14 @@ import { Event as event } from "@prisma/client";
 
 import Event from "../components/Event";
 import Navbar from "../components/auth/Navbar";
-import { getEvents } from "../lib/api/utils";
+import { getEvents } from "../server/models/Events";
 
-export const revalidate = 3600; // change when no dev environment
+export const revalidate = 10; // change when no dev environment
 
 export default async function Home() {
-  const events: event[] = await getEvents();
+  const events: event[] | null = await getEvents();
+
+  if (!events) return <div>There are no events yet :c</div>;
 
   return (
     <>
