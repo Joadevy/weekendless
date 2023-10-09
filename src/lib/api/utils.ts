@@ -18,6 +18,8 @@ const baseUrl = getBaseURL();
 export const getEvents = async () => {
   const events = await fetch(`${baseUrl}/events`).then((res) => res.json());
 
+  console.log("eventos: ", events);
+
   return events;
 };
 
