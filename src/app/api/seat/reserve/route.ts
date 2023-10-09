@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
   const attendee = {
     name: clientReservation.attendeeName,
-    nationalId: clientReservation.attendeeNationalId,
+    nationalID: clientReservation.attendeeNationalId,
     phone: clientReservation.attendeePhone,
     email: clientReservation.attendeeEmail,
   };
