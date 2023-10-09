@@ -3,11 +3,9 @@ import { type Seat, type Event, type Venue } from "@prisma/client";
 import { type ClientReservation } from "../../types";
 
 const getBaseURL = () => {
-  if (process.env.NODE_ENV === "development") {
-    return `${process.env.NEXT_PUBLIC_API_URL}`;
-  }
-
-  return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`;
+  return process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
+    : `${process.env.NEXT_PUBLIC_API_URL}`;
 };
 
 const baseUrl = getBaseURL();
