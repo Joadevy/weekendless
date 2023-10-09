@@ -1,5 +1,3 @@
-import { NextResponse } from "next/server";
-
 import { getAvailableSeatsByEventID } from "../../../../server/models/Seats";
 
 export async function GET(
@@ -8,5 +6,5 @@ export async function GET(
 ) {
   const seats = await getAvailableSeatsByEventID(Number(eventId));
 
-  return NextResponse.json(seats);
+  return Response.json(seats);
 }
