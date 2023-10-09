@@ -12,10 +12,9 @@ const baseUrl = getBaseURL();
 
 export const getEvents = async () => {
   const eventsData = await fetch(`${baseUrl}/events`);
-  // const events = await eventsData.json ();
+  const events = await eventsData.json();
 
-  const events: any[] = [];
-  // console.log("eventos: ", events);
+  console.log("eventos: ", events);
 
   return events;
 };

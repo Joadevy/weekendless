@@ -4,12 +4,10 @@ import Event from "../components/Event";
 import Navbar from "../components/auth/Navbar";
 import { getEvents } from "../lib/api/utils";
 
-export const revalidate = 10; // change when no dev environment
+export const revalidate = 3600; // change when no dev environment
 
 export default async function Home() {
   const events: event[] = await getEvents();
-
-  console.log("eventos en el componente ", events);
 
   return (
     <>
