@@ -3,11 +3,6 @@ import { type Seat, type Event, type Venue } from "@prisma/client";
 import { type ClientReservation } from "../../types";
 
 const getBaseURL = () => {
-  console.log(
-    "process.env.NEXT_PUBLIC_VERCEL_URL",
-    process.env.NEXT_PUBLIC_VERCEL_URL,
-  );
-
   return process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
     : `${process.env.NEXT_PUBLIC_API_URL}`;
@@ -16,11 +11,8 @@ const getBaseURL = () => {
 const baseUrl = getBaseURL();
 
 export const getEvents = async () => {
-  const events = await fetch(`${baseUrl}/events`).then((res) => {
-    console.log(res);
-
-    return res.json();
-  });
+  const eventsData = await fetch(`${baseUrl}/events`);
+  const events = await eventsData.json();
 
   console.log("eventos: ", events);
 
