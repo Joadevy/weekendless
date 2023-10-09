@@ -9,6 +9,8 @@ export const revalidate = 10; // change when no dev environment
 export default async function Home() {
   const events: event[] = await getEvents();
 
+  console.log("eventos en el componente ", events);
+
   return (
     <>
       <Navbar />
