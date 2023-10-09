@@ -1,4 +1,5 @@
 import { type Event } from "@prisma/client";
+
 import { db } from "../db";
 
 export async function getEvents(): Promise<Event[] | null> {

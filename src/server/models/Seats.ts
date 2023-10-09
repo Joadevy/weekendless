@@ -1,4 +1,5 @@
 import { type Reservation } from "@prisma/client";
+
 import { db } from "../db";
 
 export const getAvailableSeatsByEventID = async (id: number) => {

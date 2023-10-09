@@ -1,4 +1,5 @@
 import { type Attendee } from "@prisma/client";
+
 import { db } from "../db";
 
 export const getAttendeeByNationalId = async (nationalID: string) => {
@@ -15,14 +16,14 @@ export const getAttendeeByNationalId = async (nationalID: string) => {
 };
 
 export const createIfNotExists = async (
-  attendee: Pick<Attendee, "email" | "phone" | "nationalId" | "name">,
+  attendee: Pick<Attendee, "email" | "phone" | "nationalID" | "name">,
 ) => {
   try {
     const attendeeCreated: Attendee = await db.attendee.upsert({
-      where: { nationalID: attendee.nationalId },
+      where: { nationalID: attendee.nationalID },
       create: {
         name: attendee.name,
-        nationalID: attendee.nationalId,
+        nationalID: attendee.nationalID,
         phone: attendee.phone,
         email: attendee.email,
       },

@@ -1,5 +1,7 @@
 import { type Reservation } from "@prisma/client";
+
 import { db } from "../db";
+
 import { setReservation } from "./Seats";
 
 export async function getReservations(): Promise<Reservation[] | null> {
