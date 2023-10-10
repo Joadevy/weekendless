@@ -1,10 +1,20 @@
 import { Reservation } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { getUserIdByEmail } from "../../../../lib/api/utils";
 import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
+
+export const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function POST(request: Request) {
   const clientReservation: ClientReservation = await request.json();
@@ -38,5 +48,5 @@ export async function POST(request: Request) {
   // Pasarla al modelo para que cree la nueva reserva
   const newReservation = await create(reservation);
 
-  return NextResponse.json(newReservation);
+  return NextResponse.json(newReservation, { headers: corsHeaders });
 }
