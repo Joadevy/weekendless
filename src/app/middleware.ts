@@ -27,6 +27,10 @@ export async function middleware(request: NextRequest) {
   // Allowed origins check
   const origin = request.headers.get("origin") ?? "";
 
+  console.log("origin", origin);
+  console.log("corsOptions.allowedOrigins: ", corsOptions.allowedOrigins);
+  console.log("acepta origin: ", corsOptions.allowedOrigins.includes(origin));
+
   if (
     corsOptions.allowedOrigins.includes("*") ||
     corsOptions.allowedOrigins.includes(origin)
@@ -57,6 +61,8 @@ export async function middleware(request: NextRequest) {
   );
 
   // Return
+  console.log("Headers: ", response.headers);
+
   return response;
 }
 
