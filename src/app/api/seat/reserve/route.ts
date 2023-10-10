@@ -6,7 +6,7 @@ import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
 
-export const corsHeaders = {
+const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
