@@ -6,6 +6,13 @@ import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://weekendless.vercel.app/",
+  "https://weekendless.vercel.app",
+];
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -13,6 +20,12 @@ const corsHeaders = {
 };
 
 export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin") ?? "";
+
+  if (!allowedOrigins.includes(origin)) {
+    return NextResponse.error();
+  }
+
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
