@@ -20,22 +20,21 @@ const corsOptions: {
 // Middleware
 // ========================================================
 // This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   // Response
   const response = NextResponse.next();
 
   // Allowed origins check
   const origin = request.headers.get("origin") ?? "";
 
-  console.log("origin", origin);
-  console.log("corsOptions.allowedOrigins: ", corsOptions.allowedOrigins);
-  console.log("acepta origin: ", corsOptions.allowedOrigins.includes(origin));
-
   if (
     corsOptions.allowedOrigins.includes("*") ||
     corsOptions.allowedOrigins.includes(origin)
   ) {
-    response.headers.set("Access-Control-Allow-Origin", origin);
+    response.headers.set(
+      "Access-Control-Allow-Origin",
+      corsOptions.allowedOrigins.includes("*") ? "*" : origin,
+    );
   }
 
   // Set default CORS headers
@@ -61,8 +60,6 @@ export async function middleware(request: NextRequest) {
   );
 
   // Return
-  console.log("Headers: ", response.headers);
-
   return response;
 }
 
