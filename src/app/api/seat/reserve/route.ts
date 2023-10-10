@@ -26,6 +26,8 @@ export async function OPTIONS(req: NextRequest) {
     return NextResponse.error();
   }
 
+  corsHeaders["Access-Control-Allow-Origin"] = origin;
+
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
