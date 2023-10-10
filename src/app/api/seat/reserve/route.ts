@@ -9,8 +9,8 @@ import { create } from "../../../../server/models/Reservation";
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  // "https://weekendless.vercel.app/",
-  // "https://weekendless.vercel.app",
+  "https://weekendless.vercel.app/",
+  "https://weekendless.vercel.app",
 ];
 
 const corsHeaders = {
