@@ -15,14 +15,24 @@ export const corsHeaders = {
 
 export function middleware(request: Request) {
   const origin = request.headers.get("origin") ?? "";
+  const response = NextResponse.next();
 
   if (allowedOrigins.includes(origin)) {
-    corsHeaders["Access-Control-Allow-Origin"] = origin;
+    response.headers.set("Access-Control-Allow-Origin", origin);
   }
 
   if (request.method === "OPTIONS") {
-    return NextResponse.json({}, { headers: corsHeaders });
+    response.headers.set(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS",
+    );
+    response.headers.set(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization",
+    );
   }
+
+  return response;
 }
 
 export const config = {
