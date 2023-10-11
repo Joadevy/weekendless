@@ -26,7 +26,7 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: "/signIn",
+    signIn: "/signin",
     //   // signOut: "/auth/signout",
     //   // error: "/auth/error",
     //   // verifyRequest: "/auth/verify-request",

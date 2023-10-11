@@ -2,7 +2,6 @@
 import { signIn } from "next-auth/react";
 
 import { Button } from "../ui/button";
-import { getBaseURL } from "../../lib/utils";
 
 const Login = () => {
   return (
@@ -17,7 +16,6 @@ const Login = () => {
           onClick={async () =>
             await signIn("google", {
               redirect: true,
-              callbackUrl: getBaseURL(),
             })
           }
         >

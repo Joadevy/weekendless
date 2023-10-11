@@ -1,7 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import Link from "next/link";
+import { signIn, signOut } from "next-auth/react";
 
 import { Button } from "../ui/button";
 
@@ -18,12 +17,7 @@ const SignInOutButtons = ({ session }: Props) => {
           <Button onClick={() => signOut()}>Log out</Button>
         </>
       ) : (
-        <Link
-          className="absolute right-32 top-0 border p-2 shadow-md"
-          href={"/signIn"}
-        >
-          Sign In
-        </Link>
+        <Button onClick={() => signIn()}>Sign In</Button>
       )}
     </li>
   );

@@ -36,7 +36,7 @@ const MakeReservation = ({ seatId, handleReservation }: Props) => {
         ) : (
           <Link
             className="absolute right-32 top-0 border p-2 shadow-md"
-            href={`/signIn`}
+            href={`/signin`}
           >
             Reserve
           </Link>
