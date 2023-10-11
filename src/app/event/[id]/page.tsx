@@ -1,8 +1,8 @@
 import EventDetails from "../../../components/EventDetails";
 import Navbar from "../../../components/auth/Navbar";
-import { getEventByID } from "../../../lib/api/utils";
+import { getEventByID } from "../../../server/models/Events";
 
-export const revalidate = 10; // change when no dev environment
+export const revalidate = 60; // change when no dev environment
 
 const Page = async ({ params: { id } }: { params: { id: string } }) => {
   const eventID = Number(id);
