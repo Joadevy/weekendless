@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getBaseURL = () => {
   if (process.env.MODE === "production") {
-    return process.env.PROD_URL ?? "https://example.com";
+    return process.env.PROD_URL ?? "https://weekendless.vercel.app/";
   }
 
   return process.env.DEV_URL ?? "http://localhost:3000";
