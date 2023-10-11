@@ -1,4 +1,4 @@
-import { getVenueByID } from "../lib/api/utils";
+import { getVenueByID } from "../server/models/Venues";
 
 type Props = {
   venueId: number;

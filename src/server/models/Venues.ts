@@ -7,9 +7,11 @@ export async function getVenueByID(id: number): Promise<Venue | null> {
     const venue = await db.venue.findUnique({
       where: { id },
     });
+
     return venue;
   } catch (error) {
     console.error(error);
+
     return null;
   }
 }

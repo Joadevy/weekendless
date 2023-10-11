@@ -1,4 +1,4 @@
-import { getSeatsByEventID } from "../lib/api/utils";
+import { getAvailableSeatsByEventID } from "../server/models/Seats";
 
 import SeatsDetails from "./SeatsDetails";
 
@@ -6,10 +6,8 @@ type Props = {
   eventId: number;
 };
 
-export const revalidate = 60;
-
 const Seat = async ({ eventId }: Props) => {
-  const seats = await getSeatsByEventID(eventId);
+  const seats = await getAvailableSeatsByEventID(eventId);
 
   if (!seats) {
     return <div>No seats available</div>;

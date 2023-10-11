@@ -12,9 +12,11 @@ export const getAvailableSeatsByEventID = async (id: number) => {
         },
       },
     });
+
     return Seats;
   } catch (error) {
     console.error(error);
+
     return null;
   }
 };
@@ -28,9 +30,11 @@ export const setReservation = async (
       where: { id: seatId },
       data: { reservation: { connect: { id: reservationId } } },
     });
+
     return Seat;
   } catch (error) {
     console.error(error);
+
     return null;
   }
 };
