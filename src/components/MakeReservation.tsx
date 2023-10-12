@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 import AttendeeForm from "./AttendeeForm";
 import {
@@ -13,6 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { Button } from "./ui/button";
 
 type Props = {
   seatId: number;
@@ -34,12 +34,12 @@ const MakeReservation = ({ seatId, handleReservation }: Props) => {
             Reserve
           </AlertDialogTrigger>
         ) : (
-          <Link
+          <Button
             className="absolute right-32 top-0 border p-2 shadow-md"
-            href={`/signin`}
+            onClick={() => signIn()}
           >
             Reserve
-          </Link>
+          </Button>
         )}
         {isOpen ? (
           <AlertDialogContent>
