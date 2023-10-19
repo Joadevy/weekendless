@@ -25,3 +25,17 @@ export async function getEventByID(id: number): Promise<Event | null> {
     return null;
   }
 }
+
+export async function getEventBySeatID(seatId: number): Promise<Event | null> {
+  try {
+    const event = await db.event.findFirst({
+      where: { seats: { some: { id: seatId } } },
+    });
+
+    return event;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+}

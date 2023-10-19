@@ -38,3 +38,17 @@ export const setReservation = async (
     return null;
   }
 };
+
+export const getSeatById = async (id: number) => {
+  try {
+    const Seat = await db.seat.findUnique({
+      where: { id },
+    });
+
+    return Seat;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+};
