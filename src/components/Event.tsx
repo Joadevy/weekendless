@@ -18,8 +18,8 @@ const Event = ({ event }: Props) => {
         </header>
 
         <div className="p-4">
-          <h2>{event.name}</h2>
-          <p>{event.description}</p>
+          <h2 className="text-xl font-bold">{event.name}</h2>
+          <p className="italic text-slate-600">{event.description}</p>
         </div>
       </Link>
     </li>

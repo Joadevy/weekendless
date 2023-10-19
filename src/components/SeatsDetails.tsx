@@ -23,7 +23,7 @@ const SeatsDetails = ({ seats }: Props) => {
 
   return (
     <>
-      <h2>Seats</h2>
+      <h2>Book your ticket:</h2>
       <ul className="flex flex-col gap-2">
         {clientSeats.map((seat) => (
           <li key={seat.id} className="relative flex h-10 items-center gap-2">
