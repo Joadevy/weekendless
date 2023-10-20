@@ -32,7 +32,7 @@ export default async function Home() {
           </p>
         </header>
 
-        <ul className="flex flex-col gap-2">
+        <ul className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:gap-4">
           {events.map((event) => (
             <Event key={event.id} event={event} />
           ))}

@@ -9,7 +9,7 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <div className="border-lg rounded-lg shadow-md border border-slate-600">
+    <div className="border-lg rounded-lg shadow-lg">
       <header className="relative h-48 lg:h-64 w-full overflow-hidden rounded-t-lg object-cover">
         <img
           alt=""
@@ -22,7 +22,7 @@ const EventDetails = ({ event }: Props) => {
         <section>
           <header className="flex gap-2 items-center justify-between">
             <h2 className="text-xl font-bold">{event.name}</h2>
-            <p className="bg-slate-600 w-fit text-white p-1 rounded-md">
+            <p className="bg-black w-fit text-white p-1 rounded-md">
               {new Date(event.date).toLocaleDateString("en")}
             </p>
           </header>
