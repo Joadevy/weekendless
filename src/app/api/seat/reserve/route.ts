@@ -7,10 +7,8 @@ import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
 import { getUserByEmail } from "../../../../server/models/Users";
-import { getEventBySeatID } from "../../../../server/models/Events";
+import { getEventDetailsBySeatID } from "../../../../server/models/Events";
 import { EmailTemplate } from "../../../../components/EmailAttendee";
-import { getSeatById } from "../../../../server/models/Seats";
-import { getVenueByID } from "../../../../server/models/Venues";
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -59,8 +57,8 @@ export async function POST(request: Request) {
 
   // Armar la entidad reserva y pasarsela al modelo
   const user = await getUserByEmail(clientReservation.userEmail);
-  const event = await getEventBySeatID(clientReservation.seatId);
-  const seat = await getSeatById(clientReservation.seatId);
+
+  const eventDetails = await getEventDetailsBySeatID(clientReservation.seatId);
 
   const attendee = {
     name: clientReservation.attendeeName,
@@ -71,13 +69,13 @@ export async function POST(request: Request) {
 
   const existsAttendee = await createIfNotExists(attendee);
 
-  if (!user || !existsAttendee || !event || !seat) {
-    return NextResponse.error();
-  }
-
-  const venue = await getVenueByID(event.venueId);
-
-  if (!venue) {
+  if (
+    !user ||
+    !existsAttendee ||
+    !eventDetails ||
+    eventDetails.seats.length === 0 ||
+    !eventDetails.venue
+  ) {
     return NextResponse.error();
   }
 
@@ -101,13 +99,13 @@ export async function POST(request: Request) {
 
   try {
     await resend.emails.send({
-      from: "Weekendless <weekendless@joaquinarlettaz.tech>",
-      // from: "delivered@resend.dev",
-      // to: "jjoaquinarlettaz@gmail.com",
-      to: attendee.email,
-      subject: `Weekendless™ - New reservation on ${event?.name}`,
-      text: `Dear ${attendee.name}, here is your ticket for ${event?.name}, the only thing you have to do now is enjoy!`,
-      react: EmailTemplate({ attendee, event, seat, venue }),
+      // from: "Weekendless <weekendless@joaquinarlettaz.tech>",
+      from: "delivered@resend.dev",
+      to: "jjoaquinarlettaz@gmail.com",
+      // to: attendee.email,
+      subject: `Weekendless™ - New reservation on ${eventDetails.name}`,
+      text: `Dear ${attendee.name}, here is your ticket for ${eventDetails.name}, the only thing you have to do now is enjoy!`,
+      react: EmailTemplate({ attendee, eventDetails }),
     });
   } catch (error) {
     console.error(error);
