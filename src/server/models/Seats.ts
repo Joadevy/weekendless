@@ -11,6 +11,12 @@ export const getAvailableSeatsByEventID = async (id: number) => {
           reservation: null,
         },
       },
+      select: {
+        id: true,
+        eventId: true,
+        type: true,
+        number: true,
+      },
     });
 
     return Seats;

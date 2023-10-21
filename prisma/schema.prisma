@@ -82,8 +82,8 @@ model Venue{
 model Seat {
     id        Int      @id @default(autoincrement())
     number      Int    
-    description String
-    price     Int
+    typeId      Int
+    type        TypeSeat @relation(fields: [typeId], references: [id])
     eventId   Int 
     event     Event    @relation(fields: [eventId], references: [id])
     reservation Reservation?
@@ -91,6 +91,18 @@ model Seat {
     updatedAt DateTime @updatedAt @default(now())
 
     @@index([number])
+}
+
+model TypeSeat {
+    id        Int      @id @default(autoincrement())
+    name      String
+    description String
+    price     Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+    Seats     Seat[]
+
+    @@index([name])
 }
 
 model Reservation {

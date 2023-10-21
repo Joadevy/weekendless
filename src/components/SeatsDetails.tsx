@@ -1,9 +1,17 @@
 "use client";
-import { type Seat } from "@prisma/client";
+
 import { useState } from "react";
+import { type TypeSeat } from "@prisma/client";
 
 import MakeReservation from "./MakeReservation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+
+type Seat = {
+  id: number;
+  number: number;
+  eventId: number;
+  type: TypeSeat;
+};
 
 type Props = {
   seats: Seat[];
@@ -30,10 +38,10 @@ const SeatsDetails = ({ seats }: Props) => {
           <li key={seat.id} className="bg-slate-100 p-2 rounded-sm shadow-sm">
             <HoverCard>
               <HoverCardTrigger className="relative flex flex-col justify-center items-center">
-                <HoverCardContent>{seat.description}</HoverCardContent>
+                <HoverCardContent>{seat.type.description}</HoverCardContent>
                 <p>
                   {seat.number} |{" "}
-                  {seat.price.toLocaleString("en-US", {
+                  {seat.type.price.toLocaleString("en-US", {
                     style: "currency",
                     currency: "USD",
                   })}
