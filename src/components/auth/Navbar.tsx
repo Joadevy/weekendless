@@ -13,11 +13,11 @@ const Navbar = async () => {
   return (
     <nav className="border p-2 shadow-sm">
       <ul className="flex items-center justify-between">
-        <li className="relative h-8 w-8 hover:opacity-50 transition-opacity">
-          <Link className="font-semibold" href={"/"}>
-            <Image fill alt="" src={Wimage} />
-          </Link>
-        </li>
+        <Link href={"/"}>
+          <li className="h-8 w-8 relative hover:opacity-50 transition-opacity">
+            <Image fill alt="" sizes="5vw" src={Wimage} />
+          </li>
+        </Link>
 
         <SignInOutButtons session={session} />
       </ul>

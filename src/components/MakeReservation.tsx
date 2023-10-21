@@ -27,8 +27,11 @@ const MakeReservation = ({ seatId, handleReservation }: Props) => {
     <>
       <AlertDialog>
         {session?.user ? (
-          <AlertDialogTrigger onClick={() => setIsOpen(true)}>
-            <Button className="border p-2 shadow-md">Reserve</Button>
+          <AlertDialogTrigger
+            className="bg-primary text-primary-foreground shadow hover:bg-primary/90 border p-2 inline-flex items-center hover:opacity-80 transition-opacity justify-center rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+            onClick={() => setIsOpen(true)}
+          >
+            Reserve
           </AlertDialogTrigger>
         ) : (
           <Button className="border p-2 shadow-md" onClick={() => signIn()}>

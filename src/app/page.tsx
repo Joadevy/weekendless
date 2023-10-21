@@ -20,7 +20,7 @@ export default async function Home() {
         <header className="text-center flex flex-col items-center">
           <div className="flex items-center">
             <div className=" h-24 w-24 relative">
-              <Image fill alt="" src={Wimage} />
+              <Image fill alt="" sizes="5vw" src={Wimage} />
             </div>
             <h1 className=" -ml-5 text-5xl font-extrabold text-gray-800">
               EEKENDLESS!
