@@ -15,7 +15,7 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
   return (
     <>
       <Navbar />
-      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 border">
+      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3">
         <EventDetails event={event} />
       </main>
     </>

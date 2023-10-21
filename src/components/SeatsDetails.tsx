@@ -18,15 +18,18 @@ const SeatsDetails = ({ seats }: Props) => {
   };
 
   if (clientSeats.length === 0) {
-    return <div>No seats available</div>;
+    return <p className="text-slate-400 italic">No seats available</p>;
   }
 
   return (
     <>
       <h2>Book your ticket:</h2>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex gap-4 flex-wrap mt-1">
         {clientSeats.map((seat) => (
-          <li key={seat.id} className="relative flex h-10 items-center gap-2">
+          <li
+            key={seat.id}
+            className="relative flex flex-col justify-center items-center bg-slate-100 p-2 rounded-sm shadow-sm"
+          >
             <p>
               {seat.number} |{" "}
               {seat.price.toLocaleString("en-US", {

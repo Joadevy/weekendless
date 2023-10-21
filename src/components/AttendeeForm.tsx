@@ -175,7 +175,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
               <p className="animate-spin">↻</p>
             </Button>
           ) : (
-            <Button type="submit">Reserve</Button>
+            <Button type="submit">Confirm</Button>
           )}
         </div>
       </form>

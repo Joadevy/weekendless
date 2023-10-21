@@ -9,8 +9,8 @@ type Props = {
 const Seat = async ({ eventId }: Props) => {
   const seats = await getAvailableSeatsByEventID(eventId);
 
-  if (!seats) {
-    return <div className="text-slate-400 italic">No seats available</div>;
+  if (!seats || seats.length === 0) {
+    return <p className="text-slate-400 italic">No seats available</p>;
   }
 
   return <SeatsDetails seats={seats} />;
