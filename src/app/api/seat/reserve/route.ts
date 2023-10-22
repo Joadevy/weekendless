@@ -26,7 +26,7 @@ const corsHeaders = {
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get("origin") ?? "";
 
-  if (!allowedOrigins.includes(origin) || !origin.includes("weekendless")) {
+  if (!allowedOrigins.includes(origin)) {
     return NextResponse.error();
   }
 

@@ -71,26 +71,29 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
       attendeePhone: values.phone,
     };
 
-    const reservation = await createReservation(newReservation);
+    try {
+      const reservation = await createReservation(newReservation);
 
-    setIsLoading(false);
+      setIsLoading(false);
 
-    if (reservation) {
-      handleReservation(seatId);
+      if (reservation) {
+        handleReservation(seatId);
+        toast({
+          title: "Reservation created.",
+          description: "We've created a reservation for you!",
+        });
+      }
+    } catch (error) {
+      setIsLoading(false);
       toast({
-        title: "Reservation created.",
-        description: "We've created a reservation for you!",
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description:
+          "There was a problem with your reservation, please try again.",
       });
-
-      return setOpen(false);
+    } finally {
+      setOpen(false);
     }
-
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description:
-        "There was a problem with your reservation, please try again.",
-    });
   }
 
   return (
