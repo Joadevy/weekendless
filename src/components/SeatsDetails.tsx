@@ -6,7 +6,7 @@ import { type TypeSeat } from "@prisma/client";
 import MakeReservation from "./MakeReservation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
-type Seat = {
+export type Seat = {
   id: number;
   number: number;
   eventId: number;
@@ -41,14 +41,14 @@ const SeatsDetails = ({ seats }: Props) => {
                 <HoverCardContent>{seat.type.description}</HoverCardContent>
                 <p>
                   {seat.number} |{" "}
-                  {seat.type.price.toLocaleString("en-US", {
+                  {seat.type.price.toLocaleString("es-AR", {
                     style: "currency",
-                    currency: "USD",
+                    currency: "ARS",
                   })}
                 </p>
                 <MakeReservation
                   handleReservation={handleReservation}
-                  seatId={seat.id}
+                  seat={seat}
                 />
               </HoverCardTrigger>
             </HoverCard>

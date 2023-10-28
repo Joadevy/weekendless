@@ -47,7 +47,7 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    role          String?   @default("user") // user | admin 
+    role          String?   @default("user") 
     accounts      Account[]
     sessions      Session[]
     reservations  Reservation[]
@@ -86,7 +86,7 @@ model Seat {
     type        TypeSeat @relation(fields: [typeId], references: [id])
     eventId   Int 
     event     Event    @relation(fields: [eventId], references: [id])
-    reservation Reservation?
+    reservations Reservation[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
 
@@ -111,10 +111,11 @@ model Reservation {
     attendee  Attendee @relation(fields: [attendeeNationalID], references: [nationalID])
     userId    String
     user      User     @relation(fields: [userId], references: [id])
-    seatId    Int      @unique
+    seatId    Int     
     seat      Seat     @relation(fields: [seatId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
+    payment   Payment?
 
     @@index([userId])
 }
@@ -126,6 +127,18 @@ model Attendee {
     email     String
     nationalID String  @unique
     reservations Reservation[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
 
     @@index([nationalID])
+}
+
+model Payment {
+    id        String      @id 
+    reservationId Int @unique
+    reservation   Reservation @relation(fields: [reservationId], references: [id])
+    preferenceId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
 }

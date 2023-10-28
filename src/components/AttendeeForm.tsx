@@ -4,7 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useState, ReactNode } from "react";
+import {
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 import { createReservation } from "../lib/api/utils";
 import { type ClientReservation } from "../types";
@@ -20,6 +28,36 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
+import { Seat } from "./SeatsDetails";
+import { PreferenceState } from "./MakeReservation";
+
+const getMercadoPagoPreference = async (
+  seat: Seat,
+  reservation: Reservation,
+) => {
+  try {
+    const response = await fetch("/api/mercadopago/createPreference", {
+      method: "POST",
+      body: JSON.stringify({
+        id: reservation.id,
+        title: seat.type.description,
+        quantity: 1,
+        unit_price: seat.type.price,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    const { id: preferenceId } = response;
+
+    return preferenceId;
+  } catch (error) {
+    console.error(error);
+
+    return;
+  }
+};
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -37,16 +75,32 @@ const formSchema = z.object({
 });
 
 type Props = {
-  seatId: number;
+  seat: Seat;
   children: ReactNode;
-  setOpen: (_: boolean) => void;
-  handleReservation: (_: number) => void;
+  setOpen: Dispatch<SetStateAction<PreferenceState>>;
 };
 
-function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
+type Reservation = {
+  id: number;
+  attendeeNationalID: string;
+  userId: string;
+  seatId: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+function AttendeeForm({ seat, children }: Props) {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+
+  useEffect(() => {
+    initMercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY!, {
+      locale: "en-US",
+    });
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,7 +117,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
     setIsLoading(true);
 
     const newReservation: ClientReservation = {
-      seatId,
+      seatId: seat.id,
       userEmail: session?.user?.email!,
       attendeeNationalId: values.nationalID,
       attendeeName: values.name,
@@ -72,19 +126,15 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
     };
 
     try {
-      const reservation = await createReservation(newReservation);
-
-      setIsLoading(false);
+      const reservation: Reservation = await createReservation(newReservation);
 
       if (reservation) {
-        handleReservation(seatId);
-        toast({
-          title: "Reservation created.",
-          description: "We've created a reservation for you!",
-        });
+        const preferenceId = await getMercadoPagoPreference(seat, reservation);
+
+        setPreferenceId(preferenceId);
       }
     } catch (error) {
-      setIsLoading(false);
+      console.error(error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
@@ -92,13 +142,14 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
           "There was a problem with your reservation, please try again.",
       });
     } finally {
-      setOpen(false);
+      setIsLoading(false);
     }
   }
 
   return (
     <Form {...form}>
       <form
+        ref={formRef}
         className="flex flex-col gap-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
@@ -112,7 +163,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
                 <Input
                   placeholder="Type the attendee's name"
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || !!preferenceId}
                 />
               </FormControl>
               <FormMessage />
@@ -129,7 +180,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
                 <Input
                   placeholder="Type the attendee's national ID number"
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || !!preferenceId}
                 />
               </FormControl>
               <FormMessage />
@@ -146,7 +197,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
                 <Input
                   placeholder="Type the attendee's email"
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || !!preferenceId}
                 />
               </FormControl>
               <FormMessage />
@@ -163,7 +214,7 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
                 <Input
                   placeholder="Type the attendee's phone number"
                   {...field}
-                  disabled={isLoading}
+                  disabled={isLoading || !!preferenceId}
                 />
               </FormControl>
               <FormMessage />
@@ -173,13 +224,22 @@ function AttendeeForm({ seatId, children, setOpen, handleReservation }: Props) {
 
         <div className="mt-3 flex items-center justify-between">
           {children}
-          {isLoading ? (
+
+          {!preferenceId && isLoading ? (
             <Button disabled={isLoading}>
               <p className="animate-spin">↻</p>
             </Button>
-          ) : (
-            <Button type="submit">Confirm</Button>
-          )}
+          ) : !preferenceId && !isLoading ? (
+            <Button disabled={isLoading} type="submit">
+              Continue to pay{" "}
+              {seat.type.price.toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}
+            </Button>
+          ) : !isLoading && preferenceId ? (
+            <Wallet initialization={{ preferenceId }} />
+          ) : null}
         </div>
       </form>
     </Form>

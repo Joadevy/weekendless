@@ -1,4 +1,4 @@
-import { type Reservation } from "@prisma/client";
+import { Payment, type Reservation } from "@prisma/client";
 
 import { db } from "../db";
 
@@ -33,3 +33,21 @@ export async function create(
     return null;
   }
 }
+
+export const setPayment = async (
+  reservationId: Reservation["id"],
+  payment: Pick<Payment, "preferenceId" | "id">,
+) => {
+  try {
+    const Reservation = await db.reservation.update({
+      where: { id: reservationId },
+      data: { payment: { create: payment } },
+    });
+
+    return Reservation;
+  } catch (error) {
+    console.error(error);
+
+    return null;
+  }
+};
