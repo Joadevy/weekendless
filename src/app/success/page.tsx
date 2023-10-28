@@ -49,7 +49,12 @@ const Page = async ({
     );
   }
 
-  return <div>Reservation payment succesfully!</div>;
+  return (
+    <div>
+      Reservation succesfully created, check the attendees email for more
+      information!
+    </div>
+  );
 };
 
 export default Page;
