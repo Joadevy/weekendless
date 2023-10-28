@@ -21,7 +21,7 @@ const Login = () => {
         >
           Sign In with Google
         </Button>
-        <p className="text-gray-400 italic">
+        <p className="text-gray-400 italic text-center">
           Only email, name and avatar will be given to us.
         </p>
       </div>

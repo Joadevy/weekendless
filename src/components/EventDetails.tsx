@@ -9,8 +9,8 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <div className="rounded-md shadow-md md:w-1/2">
-      <header className="relative h-48 lg:h-64 w-full overflow-hidden rounded-t-lg object-cover">
+    <div className="rounded-md shadow-md md:w-5/12 border">
+      <header className="relative h-48 lg:h-72 w-full overflow-hidden rounded-t-lg object-cover">
         <img
           alt=""
           className="aspect-auto h-full w-full"

@@ -26,7 +26,7 @@ const AccordionQA = () => {
       <AccordionItem value="item-3">
         <AccordionTrigger>Are the events real?</AccordionTrigger>
         <AccordionContent>
-          ⁖ Nope, they are just for demo purposes.
+          ⁖ No, they are just for demo purposes.
         </AccordionContent>
       </AccordionItem>
     </Accordion>

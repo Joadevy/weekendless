@@ -31,7 +31,7 @@ const SeatsDetails = ({ seats }: Props) => {
               <HoverCardTrigger className="relative flex flex-col justify-center items-center">
                 <HoverCardContent>{seat.type.description}</HoverCardContent>
                 <p>
-                  {seat.number} |{" "}
+                  Seat {seat.number} |{" "}
                   {seat.type.price.toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
