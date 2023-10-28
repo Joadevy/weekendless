@@ -80,8 +80,8 @@ model Venue{
 }
 
 model Seat {
-    id        Int      @id @default(autoincrement())
-    number      Int    
+    id          Int      @id @default(autoincrement())
+    number      Int      @default(dbgenerated("floor(random() * 1000)"))
     typeId      Int
     type        TypeSeat @relation(fields: [typeId], references: [id])
     eventId   Int 
