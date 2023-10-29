@@ -1,6 +1,8 @@
 import { Payment, type Reservation } from "@prisma/client";
 
 import { db } from "../db";
+import { EmailTemplate } from "../../components/EmailAttendee";
+import handleSendEmail from "../nodemail/nodemail";
 
 import { setReservation } from "./Seats";
 
@@ -42,7 +44,42 @@ export const setPayment = async (
     const Reservation = await db.reservation.update({
       where: { id: reservationId },
       data: { payment: { create: payment } },
+      select: {
+        payment: true,
+        attendee: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        seatId: true,
+        userId: true,
+        seat: {
+          select: {
+            number: true,
+            type: true,
+            event: {
+              select: {
+                name: true,
+                date: true,
+                venue: {
+                  select: {
+                    name: true,
+                    address: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
+
+    await handleSendEmail(
+      Reservation.attendee.email,
+      `Weekendless™ - New reservation on ${Reservation.seat.event.name}`,
+      `Dear ${Reservation.attendee.name}, here is your ticket for ${Reservation.seat.event.name}, the only thing you have to do now is enjoy!`,
+    );
 
     return Reservation;
   } catch (error) {

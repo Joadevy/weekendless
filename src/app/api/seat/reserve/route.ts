@@ -1,6 +1,5 @@
 import { type Reservation } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
 import z from "zod";
 
 import { createIfNotExists } from "../../../../server/models/Attendees";
@@ -92,23 +91,6 @@ export async function POST(request: Request) {
 
   if (!newReservation) {
     return NextResponse.error();
-  }
-
-  // Enviar email al attendee email con info del evento y del seat.
-  const resend = new Resend(process.env.RESEND_APIKEY);
-
-  try {
-    await resend.emails.send({
-      // from: "Weekendless <weekendless@joaquinarlettaz.tech>",
-      from: "delivered@resend.dev",
-      to: "jjoaquinarlettaz@gmail.com",
-      // to: attendee.email,
-      subject: `Weekendless™ - New reservation on ${eventDetails.name}`,
-      text: `Dear ${attendee.name}, here is your ticket for ${eventDetails.name}, the only thing you have to do now is enjoy!`,
-      react: EmailTemplate({ attendee, eventDetails }),
-    });
-  } catch (error) {
-    console.error(error);
   }
 
   return NextResponse.json(newReservation, { headers: corsHeaders });
