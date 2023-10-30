@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 
+import { getBaseURL } from "../../../../lib/utils";
+
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
@@ -55,7 +57,7 @@ export async function POST(req: Request) {
         ],
         auto_return: "approved",
         back_urls: {
-          success: "http://localhost:3000/success",
+          success: `${getBaseURL()}/success`,
         },
       },
     })

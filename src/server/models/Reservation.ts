@@ -75,11 +75,15 @@ export const setPayment = async (
       },
     });
 
-    await handleSendEmail(
-      Reservation.attendee.email,
-      `Weekendless™ - New reservation on ${Reservation.seat.event.name}`,
-      `Dear ${Reservation.attendee.name}, here is your ticket for ${Reservation.seat.event.name}, the only thing you have to do now is enjoy!`,
-    );
+    try {
+      await handleSendEmail(
+        Reservation.attendee.email,
+        `Weekendless™ - New reservation on ${Reservation.seat.event.name}`,
+        `Dear ${Reservation.attendee.name}, here is your ticket for ${Reservation.seat.event.name}, the only thing you have to do now is enjoy!`,
+      );
+    } catch (error) {
+      console.error(error);
+    }
 
     return Reservation;
   } catch (error) {

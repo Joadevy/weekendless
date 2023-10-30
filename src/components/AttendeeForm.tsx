@@ -223,7 +223,7 @@ function AttendeeForm({ seat, children }: Props) {
         />
 
         <div className="mt-3 flex items-center justify-between">
-          {children}
+          {!preferenceId && children}
 
           {!preferenceId && isLoading ? (
             <Button disabled={isLoading}>
@@ -237,11 +237,16 @@ function AttendeeForm({ seat, children }: Props) {
                 currency: "ARS",
               })}
             </Button>
-          ) : !isLoading && preferenceId ? (
-            <Wallet initialization={{ preferenceId }} />
           ) : null}
         </div>
       </form>
+
+      {!isLoading && preferenceId && (
+        <footer className="flex items-center justify-between -mt-5">
+          {children}
+          <Wallet initialization={{ preferenceId }} />
+        </footer>
+      )}
     </Form>
   );
 }

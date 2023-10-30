@@ -48,10 +48,10 @@ const returnToastSuccess = () => {
 };
 
 const Page = async ({
-  _,
+  params,
   searchParams,
 }: {
-  _: { slug: string };
+  params: { slug: string };
   searchParams: searchparams;
 }) => {
   if (!searchParams.preference_id || !searchParams.payment_id) {
