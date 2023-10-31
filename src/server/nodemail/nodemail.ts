@@ -3,7 +3,7 @@ import nodemailer, { Transporter } from "nodemailer";
 const handleSendEmail = async (
   emailTo: string,
   subject: string,
-  text: string,
+  html: string,
 ) => {
   let transporter: Transporter = nodemailer.createTransport({
     service: "gmail",
@@ -20,7 +20,7 @@ const handleSendEmail = async (
     from: process.env.MAIL_USERNAME,
     to: emailTo,
     subject,
-    text,
+    html,
   };
 
   try {
