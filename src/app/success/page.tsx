@@ -2,7 +2,6 @@ import { PreferenceResponse } from "mercadopago/dist/clients/preference/commonTy
 import { redirect } from "next/navigation";
 
 import { setPayment } from "../../server/models/Reservation";
-import { toast } from "../../components/ui/use-toast";
 
 type searchparams = {
   preference_id: string;
@@ -24,27 +23,12 @@ const getItemsOfPreference = async (preferenceId: string) => {
 };
 
 const ErrorComponent = () => {
-  toast({
-    variant: "destructive",
-    title: "Uh oh! Something went wrong.",
-    description:
-      "There was a problem with your reservation, please contact weekendless team.",
-  });
-
   return (
     <div>
       <h1>There was an error proccessing your reservation</h1>
       <p>Please, contact weekendless team</p>
     </div>
   );
-};
-
-const returnToastSuccess = () => {
-  toast({
-    variant: "default",
-    title: "Reservation created succesfully",
-    description: "Check your email for more information",
-  });
 };
 
 const Page = async ({
@@ -70,8 +54,6 @@ const Page = async ({
   });
 
   if (!reservation) return <ErrorComponent />;
-
-  returnToastSuccess();
 
   return (
     <div>

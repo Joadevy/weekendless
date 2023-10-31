@@ -35,10 +35,33 @@ export async function create(
   }
 }
 
+const havePaymentWithId = async (reservationId: number, paymentId: string) => {
+  const reservation = await db.reservation.findUnique({
+    where: {
+      id: reservationId,
+    },
+    select: {
+      payment: {
+        where: {
+          id: paymentId,
+        },
+      },
+    },
+  });
+
+  return reservation;
+};
+
 export const setPayment = async (
   reservationId: Reservation["id"],
   payment: Pick<Payment, "preferenceId" | "id">,
 ) => {
+  const reservation = await havePaymentWithId(reservationId, payment.id);
+
+  if (reservation) {
+    return reservation;
+  }
+
   try {
     const Reservation = await db.reservation.update({
       where: { id: reservationId },
