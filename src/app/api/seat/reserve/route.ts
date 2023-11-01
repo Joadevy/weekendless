@@ -56,7 +56,9 @@ export async function POST(request: Request) {
   // Armar la entidad reserva y pasarsela al modelo
   const user = await getUserByEmail(clientReservation.userEmail);
 
-  const eventDetails = await getEventDetailsBySeatID(clientReservation.seatId);
+  if (!user) {
+    return NextResponse.error();
+  }
 
   const attendee = {
     name: clientReservation.attendeeName,
@@ -64,18 +66,6 @@ export async function POST(request: Request) {
     phone: clientReservation.attendeePhone,
     email: clientReservation.attendeeEmail,
   };
-
-  const existsAttendee = await createIfNotExists(attendee);
-
-  if (
-    !user ||
-    !existsAttendee ||
-    !eventDetails ||
-    eventDetails.seats.length === 0 ||
-    !eventDetails.venue
-  ) {
-    return NextResponse.error();
-  }
 
   const reservation: Pick<
     Reservation,
@@ -86,7 +76,13 @@ export async function POST(request: Request) {
     attendeeNationalID: clientReservation.attendeeNationalId,
   };
 
-  const newReservation = await create(reservation);
+  const createAttendee = createIfNotExists(attendee);
+  const createReservation = create(reservation);
+
+  const [newReservation] = await Promise.all([
+    createReservation,
+    createAttendee,
+  ]);
 
   if (!newReservation) {
     return NextResponse.error();
