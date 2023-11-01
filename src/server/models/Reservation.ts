@@ -56,7 +56,25 @@ export const setPayment = async (
   reservationId: Reservation["id"],
   payment: Pick<Payment, "preferenceId" | "id">,
 ) => {
-  const reservation = await havePaymentWithId(reservationId, payment.id);
+  const fetchPayment = fetch(
+    `https://api.mercadopago.com/v1/payments/${payment.id}`,
+    {
+      headers: {
+        Authorization: "Bearer " + process.env.MP_ACCESS_TOKEN,
+      },
+    },
+  ).then((res) => res.json());
+
+  const fetchReservation = havePaymentWithId(reservationId, payment.id);
+
+  const [existsPayment, reservation] = await Promise.all([
+    fetchPayment,
+    fetchReservation,
+  ]);
+
+  if (existsPayment.status !== "approved") {
+    return null;
+  }
 
   if (reservation) {
     return reservation;
