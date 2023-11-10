@@ -11,7 +11,7 @@ const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <nav className="border p-2 shadow-sm">
+    <nav className="border p-2 shadow-sm absolute top-0 w-full h-14 z-50">
       <ul className="flex items-center justify-between">
         <Link href={"/"}>
           <li className="h-8 w-8 relative hover:opacity-50 transition-opacity">

@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3">
+      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 pt-14">
         <header className="text-center flex flex-col items-center">
           <div className="flex items-center">
             <div className=" h-24 w-24 relative">
