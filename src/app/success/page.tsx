@@ -28,10 +28,30 @@ const getItemsOfPreference = async (preferenceId: string) => {
 
 const ErrorComponent = () => {
   return (
-    <div>
-      <h1>There was an error proccessing your reservation</h1>
-      <p>Please, contact weekendless team</p>
-    </div>
+    <>
+      <Navbar />
+      <main className="pt-14 flex flex-col items-center">
+        <h1 className="text-lg font-bold text-center">
+          We&apos;re sorry, there was an error proccessing your reservation...
+        </h1>
+        <div>
+          <p className="text-center italic">
+            Please, we&apos;ll be happy if you report it to the weekendless team
+            at:
+          </p>
+          <ul>
+            <li className=" list-disc">
+              <a href="https://twitter.com/JoaquinArlettaz">Twitter / X</a>
+            </li>
+            <li className=" list-disc">
+              <a href="https://www.linkedin.com/in/joaqu%C3%ADn-arlettaz/">
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+      </main>
+    </>
   );
 };
 
@@ -57,7 +77,9 @@ const Page = async ({
     preferenceId: preferenceId,
   });
 
-  if (!reservation) return <ErrorComponent />;
+  if (!reservation) {
+    return <ErrorComponent />;
+  }
 
   return (
     <>
