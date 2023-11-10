@@ -76,7 +76,7 @@ export const setPayment = async (
     return null;
   }
 
-  if (reservation) {
+  if (reservation?.payment) {
     return reservation;
   }
 
