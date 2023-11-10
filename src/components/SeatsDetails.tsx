@@ -1,6 +1,7 @@
 "use client";
 
 import { type TypeSeat } from "@prisma/client";
+import { Ticket } from "lucide-react";
 
 import MakeReservation from "./MakeReservation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
@@ -23,7 +24,9 @@ const SeatsDetails = ({ seats }: Props) => {
 
   return (
     <>
-      <h2>Book your ticket:</h2>
+      <h2 className="flex gap-1 items-center">
+        <Ticket size={20} /> Book your entry:
+      </h2>
       <ul className="flex gap-4 flex-wrap mt-1">
         {seats.map((seat) => (
           <li key={seat.id} className="bg-slate-100 p-2 rounded-sm shadow-sm">
@@ -31,7 +34,7 @@ const SeatsDetails = ({ seats }: Props) => {
               <HoverCardTrigger className="relative flex flex-col justify-center items-center">
                 <HoverCardContent>{seat.type.description}</HoverCardContent>
                 <p>
-                  Seat {seat.number} |{" "}
+                  Ticket {seat.number} |{" "}
                   {seat.type.price.toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",

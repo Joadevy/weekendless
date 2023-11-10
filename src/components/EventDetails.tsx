@@ -2,6 +2,7 @@ import { type Event } from "@prisma/client";
 
 import VenueDetails from "./VenueDetails";
 import Seat from "./Seat";
+import { Separator } from "./ui/separator";
 
 type Props = {
   event: Event;
@@ -18,20 +19,30 @@ const EventDetails = ({ event }: Props) => {
         />
       </header>
 
-      <div className="flex flex-col gap-4 p-4">
+      <div className="flex flex-col gap-4 p-4 space-y-1">
         <section>
           <header className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">{event.name}</h2>
             <p className="bg-black w-fit text-white p-1 rounded-md">
-              {new Date(event.date).toLocaleDateString("en")}
+              {new Date(event.date).toLocaleString("en", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
             </p>
           </header>
           <p className="italic text-slate-600 mt-1">{event.description}</p>
         </section>
 
+        <Separator />
+
         <section className="">
           <VenueDetails venueId={event.venueId} />
         </section>
+
+        <Separator />
 
         <section className="mt-2">
           <Seat eventId={event.id} />
