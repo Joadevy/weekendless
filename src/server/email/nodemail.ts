@@ -1,4 +1,7 @@
 import nodemailer, { Transporter } from "nodemailer";
+import * as handlebars from "handlebars";
+
+import { welcomeTemplate } from "./template";
 
 const handleSendEmail = async (
   emailTo: string,
@@ -28,6 +31,31 @@ const handleSendEmail = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+export const compileWelcomeTemplate = (
+  name: string,
+  eventName: string,
+  eventDate: string,
+  venueName: string,
+  venueAddress: string,
+  number: string,
+  description: string,
+  value: string,
+) => {
+  const template = handlebars.compile(welcomeTemplate);
+  const htmlBody = template({
+    name,
+    eventName,
+    eventDate,
+    venueName,
+    venueAddress,
+    number,
+    description,
+    value,
+  });
+
+  return htmlBody;
 };
 
 export default handleSendEmail;

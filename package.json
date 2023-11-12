@@ -28,6 +28,7 @@
     "clsx": "^2.0.0",
     "encoding": "^0.1.13",
     "googleapis": "^128.0.0",
+    "handlebars": "^4.7.8",
     "lucide-react": "^0.292.0",
     "mercadopago": "^2.0.3",
     "next": "13.5.4",
