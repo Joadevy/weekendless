@@ -2,6 +2,8 @@ import { Home, MapPinned } from "lucide-react";
 
 import { getVenueByID } from "../server/models/Venues";
 
+import EventParagraph from "./EventParagraph";
+
 type Props = {
   venueId: number;
 };
@@ -13,14 +15,12 @@ const VenueDetails = async ({ venueId }: Props) => {
 
   return (
     <>
-      <p className="flex gap-1 items-center">
+      <EventParagraph description={venue.name}>
         <Home size={20} />
-        {venue.name}
-      </p>
-      <p className="flex gap-1 items-center">
+      </EventParagraph>
+      <EventParagraph description={venue.address}>
         <MapPinned size={20} />
-        {venue.address}
-      </p>
+      </EventParagraph>
     </>
   );
 };

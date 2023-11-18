@@ -1,8 +1,26 @@
 import { type Event } from "@prisma/client";
+import { AtSign, Phone } from "lucide-react";
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 
 import VenueDetails from "./VenueDetails";
 import Seat from "./Seat";
 import { Separator } from "./ui/separator";
+import { buttonVariants } from "./ui/button";
+import EventParagraph from "./EventParagraph";
 
 type Props = {
   event: Event;
@@ -10,45 +28,89 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <div className="rounded-md shadow-md md:w-5/12 border">
-      <header className="relative h-48 lg:h-72 w-full overflow-hidden rounded-t-lg object-cover">
-        <img
-          alt=""
-          className="aspect-auto h-full w-full"
-          src={event.imageUrl}
-        />
-      </header>
+    <Tabs className="w-[300px] lg:w-[500px] mt-5" defaultValue="event">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="event">Event</TabsTrigger>
+        <TabsTrigger value="reserve">Reserve</TabsTrigger>
+      </TabsList>
+      <TabsContent value="event">
+        <Card>
+          <CardHeader>
+            <header className="relative h-48 lg:h-72 w-full overflow-hidden rounded-lg object-cover">
+              <img
+                alt=""
+                className="aspect-auto h-full w-full"
+                src={event.imageUrl}
+              />
+            </header>
 
-      <div className="flex flex-col gap-4 p-4 space-y-1">
-        <section>
-          <header className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">{event.name}</h2>
-            <p className="bg-black w-fit text-white p-1 rounded-md">
-              {new Date(event.date).toLocaleString("en", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </p>
-          </header>
-          <p className="italic text-slate-600 mt-1">{event.description}</p>
-        </section>
+            <div className="flex justify-between gap-2 flex-wrap items-center">
+              <CardTitle className="text-xl lg:text-3xl font-bold">
+                {event.name}
+              </CardTitle>
+              <p
+                className={
+                  buttonVariants({ variant: "outline" }) + "w-fit font-semibold"
+                }
+              >
+                {new Date(event.date).toLocaleString("en", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
+              </p>
+            </div>
+            <CardDescription className="italic">
+              {event.description}
+            </CardDescription>
+            <Separator />
+          </CardHeader>
+          <CardContent className="space-y-2 ">
+            <EventParagraph description={event.email}>
+              <AtSign size={20} />
+            </EventParagraph>
 
-        <Separator />
+            <EventParagraph description={event.phone}>
+              <Phone size={20} />
+            </EventParagraph>
 
-        <section className="">
-          <VenueDetails venueId={event.venueId} />
-        </section>
+            <VenueDetails venueId={event.venueId} />
+          </CardContent>
+          <CardFooter>
+            <TabsList>
+              <TabsTrigger
+                className={buttonVariants({ variant: "default" })}
+                value="reserve"
+              >
+                Book your ticket
+              </TabsTrigger>
+            </TabsList>
+          </CardFooter>
+        </Card>
+      </TabsContent>
 
-        <Separator />
-
-        <section className="mt-2">
-          <Seat eventId={event.id} />
-        </section>
-      </div>
-    </div>
+      <TabsContent value="reserve">
+        <Card>
+          <CardHeader>
+            <CardTitle>Reserve your ticket</CardTitle>
+            <CardDescription className="italic">
+              Choose your favorite, and we&apos;ll reserve it for you!
+            </CardDescription>
+            <Separator />
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <section>
+              <Seat eventId={event.id} />
+            </section>
+          </CardContent>
+          <CardFooter className="italic text-slate-500 font-thin">
+            We work with mercadopago to manage the payments
+          </CardFooter>
+        </Card>
+      </TabsContent>
+    </Tabs>
   );
 };
 
