@@ -4,6 +4,7 @@ import { type TypeSeat } from "@prisma/client";
 
 import MakeReservation from "./MakeReservation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { Separator } from "./ui/separator";
 
 export type Seat = {
   id: number;
@@ -25,17 +26,30 @@ const SeatsDetails = ({ seats }: Props) => {
     <>
       <ul className="flex gap-4 flex-wrap">
         {seats.map((seat) => (
-          <li key={seat.id} className="bg-slate-100 p-2 rounded-sm shadow-sm">
+          <li
+            key={seat.id}
+            className="flex gap-1 items-center p-2 rounded-md transition-all border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
+          >
             <HoverCard>
-              <HoverCardTrigger className="relative flex flex-col justify-center items-center">
+              <HoverCardTrigger className="flex flex-col justify-center items-center gap-1">
                 <HoverCardContent>{seat.type.description}</HoverCardContent>
-                <p>
-                  Ticket {seat.number} |{" "}
-                  {seat.type.price.toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </p>
+                <div className="flex h-5 items-center space-x-2">
+                  <p>
+                    Ticket <span className="font-bold">{seat.number}</span>
+                  </p>
+
+                  <Separator orientation="vertical" />
+
+                  <p>
+                    {seat.type.price.toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </p>
+                </div>
+
+                <Separator />
+
                 <MakeReservation seat={seat} />
               </HoverCardTrigger>
             </HoverCard>

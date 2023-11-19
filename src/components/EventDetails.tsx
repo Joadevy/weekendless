@@ -1,5 +1,5 @@
 import { type Event } from "@prisma/client";
-import { AtSign, Phone } from "lucide-react";
+import { AtSign, CalendarDays, Phone } from "lucide-react";
 
 import {
   Tabs,
@@ -28,66 +28,65 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <Tabs className="w-[300px] lg:w-[500px] mt-5" defaultValue="event">
+    <Tabs className="w-[350px] lg:w-[775px] mt-5" defaultValue="event">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="event">Event</TabsTrigger>
         <TabsTrigger value="reserve">Reserve</TabsTrigger>
       </TabsList>
       <TabsContent value="event">
-        <Card>
-          <CardHeader>
-            <header className="relative h-48 lg:h-72 w-full overflow-hidden rounded-lg object-cover">
-              <img
-                alt=""
-                className="aspect-auto h-full w-full"
-                src={event.imageUrl}
-              />
-            </header>
+        <Card className="flex flex-col lg:flex-row lg:gap-2 lg:items-center p-2">
+          <header className="relative h-48 lg:h-96 w-full overflow-hidden rounded-lg object-cover">
+            <img
+              alt=""
+              className="aspect-auto h-full w-full"
+              src={event.imageUrl}
+            />
+          </header>
 
-            <div className="flex justify-between gap-2 flex-wrap items-center">
+          <section>
+            <CardHeader>
               <CardTitle className="text-xl lg:text-3xl font-bold">
                 {event.name}
               </CardTitle>
-              <p
-                className={
-                  buttonVariants({ variant: "outline" }) + "w-fit font-semibold"
-                }
-              >
-                {new Date(event.date).toLocaleString("en", {
+              <CardDescription className="italic">
+                {event.description}
+              </CardDescription>
+              <Separator />
+            </CardHeader>
+            <CardContent className="space-y-2 ">
+              <EventParagraph
+                description={new Date(event.date).toLocaleString("en", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                   hour: "numeric",
                   minute: "numeric",
                 })}
-              </p>
-            </div>
-            <CardDescription className="italic">
-              {event.description}
-            </CardDescription>
-            <Separator />
-          </CardHeader>
-          <CardContent className="space-y-2 ">
-            <EventParagraph description={event.email}>
-              <AtSign size={20} />
-            </EventParagraph>
-
-            <EventParagraph description={event.phone}>
-              <Phone size={20} />
-            </EventParagraph>
-
-            <VenueDetails venueId={event.venueId} />
-          </CardContent>
-          <CardFooter>
-            <TabsList>
-              <TabsTrigger
-                className={buttonVariants({ variant: "default" })}
-                value="reserve"
               >
-                Book your ticket
-              </TabsTrigger>
-            </TabsList>
-          </CardFooter>
+                <CalendarDays size={20} />
+              </EventParagraph>
+
+              <EventParagraph description={event.email}>
+                <AtSign size={20} />
+              </EventParagraph>
+
+              <EventParagraph description={event.phone}>
+                <Phone size={20} />
+              </EventParagraph>
+
+              <VenueDetails venueId={event.venueId} />
+            </CardContent>
+            <CardFooter>
+              <TabsList>
+                <TabsTrigger
+                  className={buttonVariants({ variant: "default" })}
+                  value="reserve"
+                >
+                  Book your ticket
+                </TabsTrigger>
+              </TabsList>
+            </CardFooter>
+          </section>
         </Card>
       </TabsContent>
 
