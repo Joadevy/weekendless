@@ -9,7 +9,7 @@ const Event = ({ event }: Props) => {
   return (
     <li className="border-lg rounded-lg shadow-md lg:w-96 hover:opacity-75 hover:scale-105 transition-all">
       <Link href={`event/${event.id}`}>
-        <header className="relative h-48 w-full overflow-hidden rounded-t-lg object-cover">
+        <header className="relative h-48 lg:h-60 w-full overflow-hidden rounded-t-lg object-cover">
           <img
             alt=""
             className="aspect-auto h-full w-full"
