@@ -64,17 +64,57 @@ model Event {
     seats     Seat[]
     venueId  Int
     venue    Venue @relation(fields: [venueId], references: [id])
+    typeId   Int
+    type     TypeEvent @relation(fields: [typeId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
 
     @@index([name])
 }
 
+model TypeEvent {
+    id        Int      @id @default(autoincrement())
+    name      String
+    description String?
+    events    Event[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+
+    @@index([name])
+}
+
+
 model Venue{
     id        Int      @id @default(autoincrement())
     name      String
     address   String
+    cityId    Int
+    city      City     @relation(fields: [cityId], references: [id])
     events    Event[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+
+    @@index([name])
+}
+
+model City {
+    id        Int      @id @default(autoincrement())
+    name      String
+    postCode  String
+    venues    Venue[]
+    countryId Int
+    country   Country @relation(fields: [countryId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+
+    @@index([name])
+}
+
+model Country {
+    id        Int      @id @default(autoincrement())
+    name      String
+    postCode  String
+    cities    City[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
 
@@ -140,7 +180,6 @@ model Payment {
     reservationId Int @unique
     reservation   Reservation @relation(fields: [reservationId], references: [id])
     preferenceId String
-
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
 }
