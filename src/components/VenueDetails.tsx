@@ -1,16 +1,14 @@
-import { Home, MapPinned } from "lucide-react";
+import { Globe2, Home, MapPinned } from "lucide-react";
 
-import { getVenueByID } from "../server/models/Venues";
+import { EventWithVenue } from "../server/models/Events";
 
 import EventParagraph from "./EventParagraph";
 
 type Props = {
-  venueId: number;
+  venue: EventWithVenue["venue"];
 };
 
-const VenueDetails = async ({ venueId }: Props) => {
-  const venue = await getVenueByID(venueId);
-
+const VenueDetails = async ({ venue }: Props) => {
   if (!venue) return null;
 
   return (
@@ -20,6 +18,11 @@ const VenueDetails = async ({ venueId }: Props) => {
       </EventParagraph>
       <EventParagraph description={venue.address}>
         <MapPinned size={20} />
+      </EventParagraph>
+      <EventParagraph
+        description={`${venue.city.name}, ${venue.city.country.name}`}
+      >
+        <Globe2 size={20} />
       </EventParagraph>
     </>
   );

@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 
 import { setPayment } from "../../server/models/Reservation";
-import Navbar from "../../components/auth/Navbar";
 import Confeti from "../../components/Confetti/Confetti";
 import Wimage from "../../public/Warwick_W_logo (1).png";
 
@@ -29,7 +28,6 @@ const getItemsOfPreference = async (preferenceId: string) => {
 const ErrorComponent = () => {
   return (
     <>
-      <Navbar />
       <main className="pt-14 flex flex-col items-center">
         <h1 className="text-lg font-bold text-center">
           We&apos;re sorry, there was an error proccessing your reservation...
@@ -83,7 +81,6 @@ const Page = async ({
 
   return (
     <>
-      <Navbar />
       <Confeti />
       <main className="flex flex-col gap-2 items-center justify-center min-h-screen border text-center">
         <div className="h-full w-full border absolute opacity-5">

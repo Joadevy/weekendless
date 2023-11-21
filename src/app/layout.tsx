@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { NextAuthProvider } from "../components/auth/SessionProvider";
 import { Toaster } from "../components/ui/toaster";
 import "../styles/globals.css";
+import Navbar from "../components/auth/Navbar";
 
 export const metadata = {
   title: "Weekendless",
@@ -18,6 +19,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <NextAuthProvider>
       <html lang="en">
         <body className="">
+          <Navbar />
+
           {children}
 
           <Toaster />

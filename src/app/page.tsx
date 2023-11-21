@@ -1,4 +1,3 @@
-import { Event as event } from "@prisma/client";
 import Image from "next/image";
 
 import Event from "../components/Event";
@@ -9,13 +8,17 @@ import Wimage from "../public/Warwick_W_logo (1).png";
 export const revalidate = 3600 * 24; // change when no dev environment
 
 export default async function Home() {
-  const events: event[] | null = await getEvents();
+  const events = await getEvents();
 
-  if (!events) return <div>There are no events yet :c</div>;
+  if (!events)
+    return (
+      <div className="text-center text-slate-400 italic">
+        There are no events yet :c
+      </div>
+    );
 
   return (
     <>
-      <Navbar />
       <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 pt-14">
         <header className="text-center flex flex-col items-center">
           <div className="flex items-center">

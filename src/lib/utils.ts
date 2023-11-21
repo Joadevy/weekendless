@@ -12,3 +12,50 @@ export const getBaseURL = () => {
 
   return process.env.DEV_URL ?? "http://localhost:3000";
 };
+
+const countryNameAndFlag = {
+  argentina: "🇦🇷",
+  australia: "🇦🇺",
+  austria: "🇦🇹",
+  belgium: "🇧🇪",
+  brazil: "🇧🇷",
+  bulgaria: "🇧🇬",
+  canada: "🇨🇦",
+  chile: "🇨🇱",
+  china: "🇨🇳",
+  colombia: "🇨🇴",
+  croatia: "🇭🇷",
+  "czech republic": "🇨🇿",
+  denmark: "🇩🇰",
+  egypt: "🇪🇬",
+  estonia: "🇪🇪",
+  finland: "🇫🇮",
+  france: "🇫🇷",
+  germany: "🇩🇪",
+  greece: "🇬🇷",
+  "hong kong": "🇭🇰",
+  hungary: "🇭🇺",
+  iceland: "🇮🇸",
+  india: "🇮🇳",
+  indonesia: "🇮🇩",
+  ireland: "🇮🇪",
+  "united kingdom": "🇬🇧",
+  "united states": "🇺🇸",
+  "south korea": "🇰🇷",
+  latvia: "🇱🇻",
+  lithuania: "🇱🇹",
+  malaysia: "🇲🇾",
+  mexico: "🇲🇽",
+  morocco: "🇲🇦",
+  netherlands: "🇳🇱",
+  "new zealand": "🇳🇿",
+  norway: "🇳🇴",
+  peru: "🇵🇪",
+  philippines: "🇵🇭",
+  spain: "🇪🇸",
+  poland: "🇵🇱",
+};
+
+export const getCountryFlag = (country: string) => {
+  return countryNameAndFlag[country.toLowerCase() as "argentina"] ?? "🏳️";
+};

@@ -1,4 +1,3 @@
-import { type Event } from "@prisma/client";
 import { AtSign, CalendarDays, Phone } from "lucide-react";
 
 import {
@@ -15,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
+import { type EventWithVenue } from "../server/models/Events";
 
 import VenueDetails from "./VenueDetails";
 import Seat from "./Seat";
@@ -23,19 +23,19 @@ import { buttonVariants } from "./ui/button";
 import EventParagraph from "./EventParagraph";
 
 type Props = {
-  event: Event;
+  event: EventWithVenue;
 };
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <Tabs className="w-[350px] lg:w-[775px] mt-5" defaultValue="event">
+    <Tabs className="w-[350px] lg:w-[850px] mt-5" defaultValue="event">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="event">Event</TabsTrigger>
         <TabsTrigger value="reserve">Reserve</TabsTrigger>
       </TabsList>
       <TabsContent value="event">
         <Card className="flex flex-col lg:flex-row lg:gap-2 lg:items-center p-2">
-          <header className="relative h-48 lg:h-96 w-full overflow-hidden rounded-lg object-cover">
+          <header className="relative h-48 lg:h-[450px] w-full overflow-hidden rounded-lg object-cover">
             <img
               alt=""
               className="aspect-auto h-full w-full"
@@ -74,7 +74,7 @@ const EventDetails = ({ event }: Props) => {
                 <Phone size={20} />
               </EventParagraph>
 
-              <VenueDetails venueId={event.venueId} />
+              <VenueDetails venue={event.venue} />
             </CardContent>
             <CardFooter>
               <TabsList>
