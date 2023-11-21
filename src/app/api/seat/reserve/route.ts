@@ -6,7 +6,6 @@ import { createIfNotExists } from "../../../../server/models/Attendees";
 import { type ClientReservation } from "../../../../types";
 import { create } from "../../../../server/models/Reservation";
 import { getUserByEmail } from "../../../../server/models/Users";
-import { getEventDetailsBySeatID } from "../../../../server/models/Events";
 
 const allowedOrigins = [
   "http://localhost:3000",
