@@ -1,14 +1,21 @@
 import Image from "next/image";
 
 import Event from "../components/Event";
-import Navbar from "../components/auth/Navbar";
 import { getEvents } from "../server/models/Events";
 import Wimage from "../public/Warwick_W_logo (1).png";
+import { FilterSelect } from "../components/FilterSelect";
+import { FilterInput } from "../components/FilterInput";
 
 export const revalidate = 3600 * 24; // change when no dev environment
 
-export default async function Home() {
-  const events = await getEvents();
+export default async function Home({ searchParams }: { searchParams: any }) {
+  const { country, eventName, typeEvent } = searchParams;
+
+  const events = await getEvents(
+    country ? country : undefined,
+    eventName ? eventName : undefined,
+    typeEvent ? typeEvent : undefined,
+  );
 
   if (!events)
     return (
@@ -35,11 +42,35 @@ export default async function Home() {
           </p>
         </header>
 
-        <ul className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:gap-4">
-          {events.map((event) => (
-            <Event key={event.id} event={event} />
-          ))}
-        </ul>
+        <section className="flex items-center justify-around gap-4">
+          <FilterInput placeholder="Filter by name" queryParam="eventName" />
+
+          <FilterSelect
+            label="Event country"
+            options={["All", "Argentina", "United States", "Brazil", "Chile"]}
+            placeholder="Filter by country"
+            queryParam="country"
+          />
+
+          <FilterSelect
+            label="Event type"
+            options={["All", "Conference", "Sport", "Cinema"]}
+            placeholder="Filter by type"
+            queryParam="typeEvent"
+          />
+        </section>
+
+        {events.length > 0 ? (
+          <ul className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:gap-4">
+            {events.map((event) => (
+              <Event key={event.id} event={event} />
+            ))}
+          </ul>
+        ) : (
+          <p className="text-slate-500 italic">
+            There are no events that match to the current filters...
+          </p>
+        )}
       </main>
     </>
   );

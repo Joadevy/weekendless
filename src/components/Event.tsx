@@ -5,6 +5,7 @@ import { getCountryFlag } from "../lib/utils";
 
 import { Separator } from "./ui/separator";
 import { buttonVariants } from "./ui/button";
+import { Badge } from "./ui/badge";
 
 type Props = {
   event: EventWithVenue;
@@ -23,7 +24,10 @@ const Event = ({ event }: Props) => {
         </header>
 
         <div className="p-4">
-          <h2 className="text-xl font-bold">{event.name}</h2>
+          <header className="flex gap-2 items-center justify-between">
+            <h2 className="text-xl font-bold">{event.name}</h2>
+            <Badge>{event.type.name}</Badge>
+          </header>
           <Separator />
           <p className="italic text-slate-600 mb-16">{event.description}</p>
           <div className="flex flex-col absolute bottom-2 text-sm text-slate-600">

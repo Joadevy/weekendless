@@ -4,6 +4,7 @@ import { db } from "../db";
 
 export type EventWithVenue = Prisma.EventGetPayload<{
   include: {
+    type: true;
     venue: {
       include: {
         city: {
@@ -14,10 +15,37 @@ export type EventWithVenue = Prisma.EventGetPayload<{
   };
 }>;
 
-export async function getEvents(): Promise<EventWithVenue[] | null> {
+export async function getEvents(
+  country?: string,
+  name?: string,
+  typeEvent?: string,
+): Promise<EventWithVenue[] | null> {
   try {
     const events = await db.event.findMany({
+      where: {
+        venue: {
+          city: {
+            country: {
+              name: {
+                equals: country,
+                mode: "insensitive",
+              },
+            },
+          },
+        },
+        type: {
+          name: {
+            contains: typeEvent,
+            mode: "insensitive",
+          },
+        },
+        name: {
+          contains: name,
+          mode: "insensitive",
+        },
+      },
       include: {
+        type: true,
         venue: {
           include: {
             city: {
@@ -42,6 +70,7 @@ export async function getEventByID(id: number): Promise<EventWithVenue | null> {
     const event = await db.event.findUnique({
       where: { id },
       include: {
+        type: true,
         venue: {
           include: {
             city: {
