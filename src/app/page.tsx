@@ -14,17 +14,17 @@ export default async function Home({ searchParams }: { searchParams: any }) {
   const { country, eventName, typeEvent } = searchParams;
   const typeEvents = getAllTypeEventNames();
   const countries = getAllCountryNames();
-
-  const [typeEventOptions, countryOptions] = await Promise.all([
-    typeEvents,
-    countries,
-  ]);
-
-  const events = await getEvents(
+  const eventsPromise = getEvents(
     country ? country : undefined,
     eventName ? eventName : undefined,
     typeEvent ? typeEvent : undefined,
   );
+
+  const [typeEventOptions, countryOptions, events] = await Promise.all([
+    typeEvents,
+    countries,
+    eventsPromise,
+  ]);
 
   if (!events)
     return (
