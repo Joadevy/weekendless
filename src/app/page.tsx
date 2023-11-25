@@ -5,11 +5,20 @@ import { getEvents } from "../server/models/Events";
 import Wimage from "../public/Warwick_W_logo (1).png";
 import { FilterSelect } from "../components/FilterSelect";
 import { FilterInput } from "../components/FilterInput";
+import { getAllTypeEventNames } from "../server/models/TypeEvents";
+import { getAllCountryNames } from "../server/models/Countries";
 
 export const revalidate = 3600 * 24; // change when no dev environment
 
 export default async function Home({ searchParams }: { searchParams: any }) {
   const { country, eventName, typeEvent } = searchParams;
+  const typeEvents = getAllTypeEventNames();
+  const countries = getAllCountryNames();
+
+  const [typeEventOptions, countryOptions] = await Promise.all([
+    typeEvents,
+    countries,
+  ]);
 
   const events = await getEvents(
     country ? country : undefined,
@@ -47,14 +56,14 @@ export default async function Home({ searchParams }: { searchParams: any }) {
 
           <FilterSelect
             label="Event country"
-            options={["All", "Argentina", "United States", "Brazil", "Chile"]}
+            options={["All", ...countryOptions]} // Replace with database countries
             placeholder="Filter by country"
             queryParam="country"
           />
 
           <FilterSelect
             label="Event type"
-            options={["All", "Conference", "Sport", "Cinema"]}
+            options={["All", ...typeEventOptions]} // Replace with database event types
             placeholder="Filter by type"
             queryParam="typeEvent"
           />
