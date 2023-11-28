@@ -1,5 +1,6 @@
 import EventDetails from "../../../components/EventDetails";
 import { getEventByID } from "../../../server/models/Events";
+import { Carousel } from "../../../components/Carousel";
 
 export const revalidate = 60; // change when no dev environment
 
@@ -13,8 +14,10 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 pt-14">
+      <main className="flex w-full flex-col items-center justify-center gap-10 px-2 py-3 pt-14">
         <EventDetails event={event} />
+
+        <Carousel />
       </main>
     </>
   );
