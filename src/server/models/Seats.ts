@@ -20,6 +20,11 @@ export const getAvailableSeatsByEventID = async (id: number) => {
           },
         },
       },
+      orderBy: {
+        type: {
+          price: "asc",
+        },
+      },
     });
 
     const availableSeats = seats.filter((seat) => {
