@@ -208,6 +208,13 @@ export const getReservationOfUser = async (
         payment: {
           isNot: null,
         },
+        seat: {
+          event: {
+            date: {
+              gte: new Date(),
+            },
+          },
+        },
       },
       orderBy: {
         seat: {
