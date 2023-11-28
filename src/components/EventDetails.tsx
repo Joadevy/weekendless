@@ -28,13 +28,13 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <Tabs className="w-[350px] lg:w-[850px] mt-5" defaultValue="event">
+    <Tabs className="w-[350px] lg:w-[850px] mt-5 border" defaultValue="event">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="event">Event</TabsTrigger>
         <TabsTrigger value="reserve">Reserve</TabsTrigger>
       </TabsList>
       <TabsContent value="event">
-        <Card className="flex flex-col lg:flex-row lg:gap-2 lg:items-center p-2">
+        <Card className="flex flex-col lg:flex-row lg:gap-2 lg:items-center p-2 lg:h-[525px]">
           <header className="relative h-48 lg:h-[450px] w-full overflow-hidden rounded-lg object-cover">
             <img
               alt=""
@@ -91,7 +91,7 @@ const EventDetails = ({ event }: Props) => {
       </TabsContent>
 
       <TabsContent value="reserve">
-        <Card>
+        <Card className="h-[525px]">
           <CardHeader>
             <CardTitle>Reserve your ticket</CardTitle>
             <CardDescription className="italic">

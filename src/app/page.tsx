@@ -51,7 +51,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
           </p>
         </header>
 
-        <section className="flex items-center justify-around gap-4">
+        <section className="flex flex-col w-3/4 lg:w-auto lg:flex-row items-center justify-around gap-4">
           <FilterInput placeholder="Filter by name" queryParam="eventName" />
 
           <FilterSelect
