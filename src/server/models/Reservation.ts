@@ -1,4 +1,4 @@
-import { Payment, type Reservation } from "@prisma/client";
+import { Payment, User, type Reservation, Prisma } from "@prisma/client";
 
 import { db } from "../db";
 import handleSendEmail, { compileWelcomeTemplate } from "../email/nodemail";
@@ -140,5 +140,127 @@ export const setPayment = async (
     console.error(error);
 
     return null;
+  }
+};
+
+export type ReservationsFullInfo = Prisma.ReservationGetPayload<{
+  include: {
+    payment: true;
+    attendee: {
+      select: {
+        name: true;
+        nationalID: true;
+        email: true;
+      };
+    };
+    seat: {
+      select: {
+        number: true;
+        type: true;
+        event: {
+          select: {
+            id: true;
+            name: true;
+            date: true;
+            venue: {
+              select: {
+                name: true;
+                address: true;
+                city: {
+                  select: {
+                    name: true;
+                    country: {
+                      select: {
+                        name: true;
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+}>;
+
+export const getReservationOfUser = async (
+  email: User["email"],
+): Promise<ReservationsFullInfo[]> => {
+  try {
+    const userId = await db.user.findUnique({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!userId) {
+      return [];
+    }
+
+    const reservations = await db.reservation.findMany({
+      where: {
+        userId: userId.id,
+        payment: {
+          isNot: null,
+        },
+      },
+      orderBy: {
+        seat: {
+          event: {
+            date: "asc",
+          },
+        },
+      },
+      include: {
+        payment: true,
+        attendee: {
+          select: {
+            name: true,
+            email: true,
+            nationalID: true,
+          },
+        },
+        seat: {
+          select: {
+            number: true,
+            type: true,
+            event: {
+              select: {
+                name: true,
+                id: true,
+                date: true,
+                venue: {
+                  select: {
+                    name: true,
+                    address: true,
+                    city: {
+                      select: {
+                        name: true,
+                        country: {
+                          select: {
+                            name: true,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return reservations;
+  } catch (error) {
+    console.error(error);
+
+    return [];
   }
 };
