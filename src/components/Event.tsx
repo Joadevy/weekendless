@@ -26,7 +26,7 @@ const Event = ({ event }: Props) => {
         <div className="p-4">
           <header className="flex gap-2 items-center justify-between">
             <h2 className="text-xl font-bold">{event.name}</h2>
-            <Badge>{event.type.name}</Badge>
+            <Badge className="text-center">{event.type.name}</Badge>
           </header>
           <Separator />
           <p className="italic text-slate-600 mb-16">{event.description}</p>

@@ -7,10 +7,10 @@ type Props = {
 
 const EventParagraph = ({ description, children }: Props) => {
   return (
-    <p className="flex gap-1 items-center p-1 rounded-md transition-opacity border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground w-[250px] hover">
-      {children}
+    <div className="flex gap-1 items-center p-1 transition-opacity border-b border-b-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground w-[250px] lg:w-[285px] hover">
+      <div className="w-1/12 text-center flex items-center">{children}</div>
       {description}
-    </p>
+    </div>
   );
 };
 
