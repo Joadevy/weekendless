@@ -18,19 +18,25 @@ type Iprops = {
 
 const ReservationCard = ({ reservation }: Iprops) => {
   return (
-    <Card className="py-2">
+    <Card className="py-2 w-[250px] h-[275px] lg:w-[300px] relative">
       <CardContent>
         <CardTitle className="mb-1">{reservation.seat.event.name}</CardTitle>
         <Separator />
 
         <ul className="flex flex-col text-base mt-3">
-          <li>Attendee&apos;s Name {reservation.attendee.name}</li>
-
           <li>
-            Seat <span className="font-bold">{reservation.seat.number}</span>
+            By <span className="font-bold"> {reservation.attendee.name}</span>,{" "}
+            {reservation.attendee.email}
           </li>
 
-          <li>{reservation.seat.event.venue.address}</li>
+          <li>
+            Ticket <span className="font-bold">{reservation.seat.number}</span>
+          </li>
+
+          <li>
+            {reservation.seat.event.venue.name},{" "}
+            {reservation.seat.event.venue.address}
+          </li>
 
           <li className="flex gap-1 items-center">
             <span>
@@ -49,12 +55,12 @@ const ReservationCard = ({ reservation }: Iprops) => {
         </ul>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="absolute bottom-0">
         <Link
           className={buttonVariants({ variant: "default" })}
           href={`/event/${reservation.seat.event.id}`}
         >
-          More event info
+          Event Details
         </Link>
       </CardFooter>
     </Card>

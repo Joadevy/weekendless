@@ -19,16 +19,16 @@ type Props = {
 
 const SeatsDetails = ({ seats }: Props) => {
   if (!seats || seats.length === 0) {
-    return <p className="text-slate-400 italic">No seats available</p>;
+    return <p className="text-slate-400 italic">No tickets available</p>;
   }
 
   return (
     <>
-      <ul className="flex gap-4 flex-wrap">
+      <ul className="flex gap-2 lg:gap-4 flex-wrap overflow-y-auto h-[300px] lg:h-auto">
         {seats.map((seat) => (
           <li
             key={seat.id}
-            className="flex gap-1 items-center p-2 rounded-md transition-all border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
+            className="flex gap-1 items-center p-2 h-fit min-h-[50px] rounded-md transition-all border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
           >
             <HoverCard>
               <HoverCardTrigger className="flex flex-col justify-center items-center gap-1">

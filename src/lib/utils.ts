@@ -15,6 +15,7 @@ export const getBaseURL = () => {
 
 const countryNameAndFlag = {
   argentina: "🇦🇷",
+  uruguay: "🇺🇾",
   australia: "🇦🇺",
   austria: "🇦🇹",
   belgium: "🇧🇪",

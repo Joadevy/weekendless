@@ -26,7 +26,10 @@ type Props = {
 
 const EventDetails = ({ event }: Props) => {
   return (
-    <Tabs className="w-[350px] lg:w-[900px] mt-5" defaultValue="event">
+    <Tabs
+      className="max-w-[400px] lg:max-w-none lg:w-[900px] mt-5"
+      defaultValue="event"
+    >
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="event">Event</TabsTrigger>
         <TabsTrigger value="reserve">Reserve</TabsTrigger>

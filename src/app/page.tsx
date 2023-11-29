@@ -70,7 +70,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
         </section>
 
         {events.length > 0 ? (
-          <ul className="flex flex-col gap-2 lg:flex-row lg:flex-wrap lg:gap-4">
+          <ul className="flex flex-col gap-6 items-center justify-center lg:gap-4 lg:flex-row lg:flex-wrap mb-10">
             {events.map((event) => (
               <Event key={event.id} event={event} />
             ))}
