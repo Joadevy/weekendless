@@ -57,7 +57,9 @@ const MakeReservation = ({ seat }: Props) => {
         {open.isOpen ? (
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Let&apos;s reserve a seat!</AlertDialogTitle>
+              <AlertDialogTitle>
+                Let&apos;s reserve your ticket!
+              </AlertDialogTitle>
               <AlertDialogDescription>
                 Enter the attendee information below
               </AlertDialogDescription>
