@@ -24,7 +24,7 @@ const page = async () => {
 
   if (!reservations.length) {
     return (
-      <div className="text-center text-slate-400 italic pt-16 px-5 flex flex-col gap-1 items-center">
+      <div className="text-center text-slate-400 italic pt-16 px-5 flex flex-col gap-1 items-center min-h-screen">
         There are no reservations yet, let&apos;s book some!
         <Link
           className={buttonVariants({ variant: "default" }) + " w-fit"}
@@ -37,7 +37,7 @@ const page = async () => {
   }
 
   return (
-    <main className="px-5 pt-16">
+    <main className="px-5 pt-16 min-h-screen">
       <h1 className="text-lg lg:text-2xl font-bold mb-2">My reservations</h1>
       <ul className="flex flex-wrap gap-2 lg:gap-4">
         {reservations.map((reservation) => (
