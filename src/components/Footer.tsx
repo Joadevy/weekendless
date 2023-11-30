@@ -5,7 +5,7 @@ import Wimage from "../public/Warwick_W_logo (1).png";
 
 const Footer = () => {
   return (
-    <footer className="p-2 grid grid-cols-2 lg:grid-cols-3 place-content-center grid-flow-dense h-20 bg-primary">
+    <footer className="p-2 grid grid-cols-2 lg:grid-cols-3 place-content-center grid-flow-dense h-20 bg-primary absolute bottom-0 w-full">
       <div className="flex items-center">
         <Link className="h-10 w-10 relative hover:opacity-90" href={"/"}>
           <Image fill alt="" sizes="5vw" src={Wimage} />

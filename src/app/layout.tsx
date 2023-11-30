@@ -19,10 +19,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <NextAuthProvider>
       <html lang="en">
-        <body className="relative">
+        <body className="relative min-h-screen">
           <Navbar />
 
-          {children}
+          <main className="pb-20">{children}</main>
 
           <Toaster />
 

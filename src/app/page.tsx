@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
 
   return (
     <>
-      <main className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 pt-14">
+      <div className="flex w-full flex-col items-center justify-center gap-4 px-2 py-3 pt-14">
         <header className="text-center flex flex-col items-center">
           <div className="flex items-center">
             <div className=" h-24 w-24 relative">
@@ -80,7 +80,7 @@ export default async function Home({ searchParams }: { searchParams: any }) {
             There are no events that match to the current filters...
           </p>
         )}
-      </main>
+      </div>
     </>
   );
 }

@@ -14,7 +14,7 @@ const Page = () => {
   }
 
   return (
-    <main className="min-h-screen grid place-items-center">
+    <div className="min-h-screen grid place-items-center">
       <div className="relative w-10/12 lg:w-1/2 flex flex-col gap-4">
         <Login />
 
@@ -22,7 +22,7 @@ const Page = () => {
           <AccordionQA />
         </footer>
       </div>
-    </main>
+    </div>
   );
 };
 

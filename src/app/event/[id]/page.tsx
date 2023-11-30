@@ -14,11 +14,11 @@ const Page = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <main className="flex w-full flex-col items-center justify-center gap-10 px-2 py-3 pt-14">
+      <div className="flex w-full flex-col items-center justify-center gap-10 px-2 py-3 pt-14">
         <EventDetails event={event} />
 
         <Carousel />
-      </main>
+      </div>
     </>
   );
 };

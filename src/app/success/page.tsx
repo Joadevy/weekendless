@@ -28,7 +28,7 @@ const getItemsOfPreference = async (preferenceId: string) => {
 const ErrorComponent = () => {
   return (
     <>
-      <main className="pt-14 flex flex-col items-center">
+      <div className="pt-14 flex flex-col items-center">
         <h1 className="text-lg font-bold text-center">
           We&apos;re sorry, there was an error proccessing your reservation...
         </h1>
@@ -48,7 +48,7 @@ const ErrorComponent = () => {
             </li>
           </ul>
         </div>
-      </main>
+      </div>
     </>
   );
 };
@@ -82,7 +82,7 @@ const Page = async ({
   return (
     <>
       <Confeti />
-      <main className="flex flex-col gap-2 items-center justify-center min-h-screen border text-center">
+      <div className="flex flex-col gap-2 items-center justify-center min-h-screen border text-center">
         <div className="h-full w-full border absolute opacity-5">
           <Image fill alt="" className="w-full" sizes="50vw" src={Wimage} />
         </div>
@@ -92,7 +92,7 @@ const Page = async ({
         <p className="text-lg font-normal">
           Check the attendee&apos;s email for more information about the ticket
         </p>
-      </main>
+      </div>
     </>
   );
 };
