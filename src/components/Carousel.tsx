@@ -19,12 +19,13 @@ export async function Carousel() {
         {carouselEvents.map((event, i) => (
           <li
             key={`${event.id}${i}`}
-            className="relative aspect-square h-[35vh] max-h-[350px] w-10/12 lg:w-2/3 max-w-[475px] flex-none md:w-1/3 border rounded-md shadow-lg overflow-hidden"
+            className="group relative aspect-square h-[35vh] max-h-[350px] w-10/12 lg:w-2/3 max-w-[475px] flex-none md:w-1/3 border rounded-md shadow-lg overflow-hidden hover:opacity-90 transition-opacity"
           >
             <Link className="h-full w-full" href={`/event/${event.id}`}>
               <Image
                 fill
                 alt={event.name}
+                className="transition duration-300 ease-in-out group-hover:scale-105"
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 src={event.imageUrl}
               />

@@ -1,19 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Wimage from "../public/Warwick_W_logo (1).png";
+import Wimage from "../public/Warwick_W_logo_Gray.png";
 
 const Footer = () => {
   return (
-    <footer className="p-2 grid grid-cols-2 lg:grid-cols-3 place-content-center grid-flow-dense h-20 bg-primary absolute bottom-0 w-full">
+    <footer className="p-2 grid grid-cols-2 lg:grid-cols-3 place-content-center grid-flow-dense h-20 bg-black absolute bottom-0 w-full">
       <div className="flex items-center">
-        <Link className="h-10 w-10 relative hover:opacity-90" href={"/"}>
-          <Image fill alt="" sizes="5vw" src={Wimage} />
+        <Link
+          className="h-10 w-10 relative hover:opacity-75 transition-opacity"
+          href={"/"}
+        >
+          <Image fill alt="" color="white" sizes="5vw" src={Wimage} />
         </Link>
       </div>
 
       <ul className="flex flex-col gap-2">
-        <li className="text-slate-600 text-center flex items-center w-fit gap-1">
+        <li className="text-slate-600 text-center flex items-center w-fit gap-1 hover:opacity-75 transition-opacity">
           <svg
             height="1.4em"
             viewBox="0 0 24 24"
@@ -33,7 +36,8 @@ const Footer = () => {
           </svg>
           <Link href="mailto:reservationsweekendless@gmail.com">Email us</Link>
         </li>
-        <li className="text-slate-600 text-center flex items-center w-fit gap-1">
+
+        <li className="text-slate-600 text-center flex items-center w-fit gap-1 hover:opacity-75 transition-opacity">
           <svg
             height="1.4em"
             viewBox="0 0 256 256"

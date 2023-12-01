@@ -13,7 +13,7 @@ type Props = {
 
 const Event = ({ event }: Props) => {
   return (
-    <li className="border-lg rounded-lg shadow-md lg:w-96 hover:opacity-75 hover:scale-105 transition-all relative">
+    <li className="animate-fade-in border-lg rounded-lg shadow-md lg:w-96 hover:scale-105 opacity-100 hover:opacity-80 transition-all relative">
       <Link href={`event/${event.id}`}>
         <header className="relative h-54 lg:h-60 w-full overflow-hidden rounded-t-lg object-cover">
           <img

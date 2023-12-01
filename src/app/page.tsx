@@ -56,14 +56,14 @@ export default async function Home({ searchParams }: { searchParams: any }) {
 
           <FilterSelect
             label="Event country"
-            options={["All", ...countryOptions]} // Replace with database countries
+            options={["All", ...countryOptions]}
             placeholder="Filter by country"
             queryParam="country"
           />
 
           <FilterSelect
             label="Event type"
-            options={["All", ...typeEventOptions]} // Replace with database event types
+            options={["All", ...typeEventOptions]}
             placeholder="Filter by type"
             queryParam="typeEvent"
           />
