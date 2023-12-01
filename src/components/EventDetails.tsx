@@ -15,7 +15,7 @@ import {
 import { type EventWithVenue } from "../server/models/Events";
 
 import VenueDetails from "./VenueDetails";
-import Seat from "./Seat";
+import Seats from "./Seat";
 import { Separator } from "./ui/separator";
 import { buttonVariants } from "./ui/button";
 import EventParagraph from "./EventParagraph";
@@ -134,7 +134,7 @@ const EventDetails = ({ event }: Props) => {
           </CardHeader>
           <CardContent className="space-y-2">
             <section>
-              <Seat eventId={event.id} />
+              <Seats event={event} />
             </section>
           </CardContent>
           <CardFooter className="italic text-slate-500 font-thin">

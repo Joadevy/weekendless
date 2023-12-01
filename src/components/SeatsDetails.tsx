@@ -2,6 +2,8 @@
 
 import { type TypeSeat } from "@prisma/client";
 
+import { EventWithVenue } from "../server/models/Events";
+
 import MakeReservation from "./MakeReservation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { Separator } from "./ui/separator";
@@ -15,9 +17,10 @@ export type Seat = {
 
 type Props = {
   seats: Seat[];
+  event: EventWithVenue;
 };
 
-const SeatsDetails = ({ seats }: Props) => {
+const SeatsDetails = ({ seats, event }: Props) => {
   if (!seats || seats.length === 0) {
     return <p className="text-slate-400 italic">No tickets available</p>;
   }
@@ -50,7 +53,7 @@ const SeatsDetails = ({ seats }: Props) => {
 
                 <Separator />
 
-                <MakeReservation seat={seat} />
+                <MakeReservation event={event} seat={seat} />
               </HoverCardTrigger>
             </HoverCard>
           </li>

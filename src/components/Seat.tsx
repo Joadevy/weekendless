@@ -1,19 +1,20 @@
+import { EventWithVenue } from "../server/models/Events";
 import { getAvailableSeatsByEventID } from "../server/models/Seats";
 
 import SeatsDetails from "./SeatsDetails";
 
 type Props = {
-  eventId: number;
+  event: EventWithVenue;
 };
 
-const Seat = async ({ eventId }: Props) => {
-  const seats = await getAvailableSeatsByEventID(eventId);
+const Seats = async ({ event }: Props) => {
+  const seats = await getAvailableSeatsByEventID(event.id);
 
   if (!seats || seats.length === 0) {
     return <p className="text-slate-400 italic">No tickets available</p>;
   }
 
-  return <SeatsDetails seats={seats} />;
+  return <SeatsDetails event={event} seats={seats} />;
 };
 
-export default Seat;
+export default Seats;
