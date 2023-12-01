@@ -13,7 +13,7 @@ function Information({ children, name, details }: Iprops) {
         <div className="absolute left-1">{children}</div>
         <p className="ml-7">{name}</p>
       </div>
-      <p className="text-right">{details}</p>
+      <p className="text-right font-semibold">{details}</p>
     </div>
   );
 }

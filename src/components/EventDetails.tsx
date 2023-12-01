@@ -138,7 +138,8 @@ const EventDetails = ({ event }: Props) => {
             </section>
           </CardContent>
           <CardFooter className="italic text-slate-500 font-thin">
-            We work with mercadopago to manage the payments
+            We collaborate with MercadoPago to handle payments, and the
+            displayed price is in Argentine Pesos (ARS).
           </CardFooter>
         </Card>
       </TabsContent>

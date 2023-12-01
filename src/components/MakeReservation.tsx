@@ -61,14 +61,13 @@ const MakeReservation = ({ seat, event }: Props) => {
         )}
         {open.isOpen ? (
           <AlertDialogContent>
-            <AlertDialogHeader>
+            <AlertDialogHeader className="space-y-0">
               <AlertDialogTitle className="mb-0">
                 Let&apos;s reserve your ticket for &quot;{event.name}&quot;
               </AlertDialogTitle>
-              <AlertDialogDescription className="mt-0">
-                Enter the attendee information below
+              <AlertDialogDescription className="">
+                Complete the attendee information below
               </AlertDialogDescription>
-              {/* <Separator /> */}
             </AlertDialogHeader>
 
             <div className="flex flex-col gap-1">
@@ -124,9 +123,9 @@ const MakeReservation = ({ seat, event }: Props) => {
                 name="Address"
               >
                 <svg
-                  height="1.45em"
+                  height="1.35em"
                   viewBox="0 0 24 24"
-                  width="1.45em"
+                  width="1.35em"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -140,12 +139,12 @@ const MakeReservation = ({ seat, event }: Props) => {
 
               <Information
                 details={seat.number.toString()}
-                name="Ticket number"
+                name="Ticket Number"
               >
                 <svg
-                  height="1em"
+                  height="1.2em"
                   viewBox="0 0 14 14"
-                  width="1em"
+                  width="1.2em"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
