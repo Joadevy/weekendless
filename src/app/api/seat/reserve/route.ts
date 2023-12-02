@@ -75,13 +75,8 @@ export async function POST(request: Request) {
     attendeeNationalID: clientReservation.attendeeNationalId,
   };
 
-  const createAttendee = createIfNotExists(attendee);
-  const createReservation = create(reservation);
-
-  const [newReservation] = await Promise.all([
-    createReservation,
-    createAttendee,
-  ]);
+  await createIfNotExists(attendee);
+  const newReservation = await create(reservation);
 
   if (!newReservation) {
     return NextResponse.error();
