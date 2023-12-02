@@ -1,5 +1,3 @@
-WEEKENDLESS! NEXTJS + NEXT AUTH + TAILWINDCSS + POSTGRESQL + PRISMA
-
 **WEEKENDLESS!**   
 ![](https://res.cloudinary.com/dkjkgri6x/image/upload/v1701480759/gqqmjxiw0fgonsryllpj.png)
 
