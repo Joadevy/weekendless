@@ -51,22 +51,24 @@ export default async function Home({ searchParams }: { searchParams: any }) {
           </p>
         </header>
 
-        <section className="flex flex-col w-3/4 lg:w-auto lg:flex-row items-center justify-around gap-4">
+        <section className="flex flex-col w-full lg:w-auto lg:flex-row items-center justify-around gap-4">
           <FilterInput placeholder="Filter by name" queryParam="eventName" />
 
-          <FilterSelect
-            label="Event country"
-            options={["All", ...countryOptions]}
-            placeholder="Filter by country"
-            queryParam="country"
-          />
+          <div className="flex flex-row gap-4 w-11/12 self-center justify-self-center">
+            <FilterSelect
+              label="Event country"
+              options={["All", ...countryOptions]}
+              placeholder="Filter by country"
+              queryParam="country"
+            />
 
-          <FilterSelect
-            label="Event type"
-            options={["All", ...typeEventOptions]}
-            placeholder="Filter by type"
-            queryParam="typeEvent"
-          />
+            <FilterSelect
+              label="Event type"
+              options={["All", ...typeEventOptions]}
+              placeholder="Filter by type"
+              queryParam="typeEvent"
+            />
+          </div>
         </section>
 
         {events.length > 0 ? (
