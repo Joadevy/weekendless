@@ -20,10 +20,15 @@ export default async function Home({ searchParams }: { searchParams: any }) {
     typeEvent ? typeEvent : undefined,
   );
 
+  const failingPromise = new Promise((resolve, reject) => {
+    reject(new Error("This is a test error"));
+  });
+
   const [typeEventOptions, countryOptions, events] = await Promise.all([
     typeEvents,
     countries,
     eventsPromise,
+    failingPromise,
   ]);
 
   if (!events)
